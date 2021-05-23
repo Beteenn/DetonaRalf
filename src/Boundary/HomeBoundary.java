@@ -1,36 +1,24 @@
 package Boundary;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.Pane;
 
-public class HomeBoundary extends Application{
-  @Override
-  public void start(Stage stage) throws Exception {
-    GridPane gp = new GridPane();
-    gp.setStyle("-fx-background-color: #FFFFFF");
-    gp.setHgap(100);
-    gp.setVgap(15);
-    BorderPane panePrincipal = new BorderPane();
-    Scene scn = new Scene(panePrincipal, 1280, 720);
+public class HomeBoundary {
+
+  public Pane getHomeBoundary() {
+    GridPane panePrincipal = new GridPane();
 
     Button buttonLab = Shared.appButtonLarge("Laboratórios");
     Button buttonProf = Shared.appButtonLarge("Professores");
-    Label title = Shared.appTitle("Detona Ralf");
-    TextField field = Shared.appInput();
-    MenuButton dropDown = Shared.appDropDownButton();
 
-    gp.add(title,1, 0);
-    gp.add(buttonLab,0, 1);
-    gp.add(buttonProf,1, 1);
-    gp.add(field,1, 2);
-    gp.add(dropDown,1, 3);
+    panePrincipal.setAlignment(Pos.CENTER);
+    panePrincipal.setHgap(50);
+    panePrincipal.setStyle("-fx-background-color: #FFFFFF");
 
-    panePrincipal.setTop(Shared.appHeader(false));
-    panePrincipal.setCenter(gp);
+    panePrincipal.add(buttonLab,1, 1);
+    panePrincipal.add(buttonProf,2, 1);
 
     buttonLab.setOnAction(e -> {
       System.out.println("Laboratorios");
@@ -40,13 +28,7 @@ public class HomeBoundary extends Application{
       System.out.println("Professores");
     });
 
-    stage.setScene(scn);
-    stage.setTitle("Detona Ralf");
-    stage.show();
-
+    return panePrincipal;
   }
 
-  public static void main(String[] args) {
-    Application.launch(HomeBoundary.class, args);
-  }
 }

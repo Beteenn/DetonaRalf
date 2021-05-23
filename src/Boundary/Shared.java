@@ -10,7 +10,7 @@ import javafx.util.Callback;
 
 
 public class Shared {
-  public static GridPane appHeader(boolean isHome) {
+  public static GridPane appTopBar(boolean isHome) {
     GridPane header = new GridPane();
     header.setStyle("-fx-background-color: #FFFFFF");
     header.setPadding(new Insets(10));
@@ -88,6 +88,8 @@ public class Shared {
     colunaId.setCellValueFactory(new PropertyValueFactory<>("id"));
     colunaDesc.setCellValueFactory(new PropertyValueFactory<>("descricao"));
     colunaNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+
+    colunaDesc.setMinWidth(500);
 
     tabela.getColumns().addAll(colunaId, colunaDesc, colunaNumero);
     tabela.setItems(labs);
