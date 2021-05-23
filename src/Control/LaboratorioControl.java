@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 public class LaboratorioControl {
   private Repository _repLab = new Repository();
 
-  private ObservableList<Laboratorio> labs = FXCollections.observableArrayList();
-
   private LongProperty id = new SimpleLongProperty(0);
   private StringProperty descricao = new SimpleStringProperty("");
   private IntegerProperty numero = new SimpleIntegerProperty(0);
@@ -32,7 +30,7 @@ public class LaboratorioControl {
       return false;
     }
 
-    lab.setId(labs.size() + 1);
+    lab.setId(_repLab.getLabs().size() + 1);
     _repLab.addLab(lab);
 
     clearLab();
@@ -66,9 +64,9 @@ public class LaboratorioControl {
   }
 
   public void removeLab() {
-    int index = labs.size() - 1;
+    int index = _repLab.getLabs().size() - 1;
     if (index >= 0) {
-      labs.remove(index);
+      _repLab.removeLab(index);
     }
   }
 

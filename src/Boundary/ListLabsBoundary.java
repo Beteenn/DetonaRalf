@@ -84,7 +84,9 @@ public class ListLabsBoundary {
 
           {
             btn.setOnAction((ActionEvent event) -> {
-              System.out.println("Botão tabela");
+              Laboratorio lab = getTableView().getItems().get(getIndex());
+              System.out.println("selectedData: " + lab.getId());
+              System.out.println("selectedData: " + lab.getDescricao());
             });
           }
 

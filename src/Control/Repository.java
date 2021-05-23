@@ -23,6 +23,15 @@ public class Repository {
     return false;
   }
 
+  public boolean removeLab(int index) {
+    try{
+      labs.remove(index);
+      return true;
+    } catch(Exception e) {
+      return false;
+    }
+  }
+
   public ObservableList<Laboratorio> getLabs() {
     return labs;
   }
