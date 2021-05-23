@@ -31,7 +31,7 @@ public class Main extends Application {
         gp.setVgap(15);
 
         panePrincipal.setTop(Shared.appTopBar(true));
-        panePrincipal.setCenter(updateLabBoundary.getUpdateLabBoundary());
+        panePrincipal.setCenter(listLabsBoundary.getListLabsBoundary());
 
         primaryStage.setScene(scn);
         primaryStage.setTitle("Detona Ralf");
