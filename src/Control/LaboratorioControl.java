@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class LaboratorioControl {
+  private Repository _repLab = new Repository();
 
   private ObservableList<Laboratorio> labs = FXCollections.observableArrayList();
 
@@ -13,11 +14,55 @@ public class LaboratorioControl {
   private StringProperty descricao = new SimpleStringProperty("");
   private IntegerProperty numero = new SimpleIntegerProperty(0);
 
-  public void addLab() {
-    Laboratorio lab = new Laboratorio();
+  public boolean addLab() {
+    Laboratorio lab = getLab();
+
+    if (lab.getNumero() == 0) {
+      System.out.println("Falta o numero");
+      return false;
+    }
+
+    if (lab.getDescricao().equals("")) {
+      System.out.println("Falta desc");
+      return false;
+    }
+
+    if (_repLab.exists(lab)) {
+      System.out.println("Numero ja cadastrado");
+      return false;
+    }
+
+    lab.setId(labs.size() + 1);
+    _repLab.addLab(lab);
+
+    clearLab();
+
+    return true;
+  }
+
+  public void updateLab() {
+    Laboratorio lab = getLab();
     lab.setId(1);
-    lab.setDescricao("Testando");
-    labs.add(lab);
+    if (_repLab.updateLab(lab)) {
+      System.out.println("Alterado");
+    } else {
+      System.out.println("Nao encontrado");
+    }
+  }
+
+  public void list() {
+    ObservableList<Laboratorio> labs = _repLab.getLabs();
+    for (Laboratorio labRep : labs) {
+      System.out.println(labRep.getId());
+      System.out.println(labRep.getNumero());
+      System.out.println(labRep.getDescricao());
+      System.out.println("---------------------------");
+    }
+  }
+
+  private void clearLab() {
+    descricao.setValue("");
+    numero.setValue(0);
   }
 
   public void removeLab() {
@@ -46,7 +91,7 @@ public class LaboratorioControl {
 
   //region Getters
   public ObservableList<Laboratorio> getLabs() {
-    return labs;
+    return _repLab.getLabs();
   }
 
   public long getId() {

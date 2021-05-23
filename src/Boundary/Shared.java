@@ -37,6 +37,8 @@ public class Shared {
 
     btnVoltar.setOnAction((e)->{
       System.out.println("Voltando");
+      Main main = new Main();
+      main.setPreviousView();
     });
 
     btnSair.setOnAction((e)->{

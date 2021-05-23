@@ -1,6 +1,7 @@
 package Boundary;
 
 import Control.LaboratorioControl;
+import Control.Repository;
 import Entity.Laboratorio;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -16,9 +17,13 @@ import javafx.util.StringConverter;
 import javafx.util.converter.LongStringConverter;
 
 public class ListLabsBoundary {
-  private LaboratorioControl control = new LaboratorioControl();
-  private Label textId = Shared.appLabel("Id");
+  private LaboratorioControl _labControl;
 
+  public ListLabsBoundary(LaboratorioControl control) {
+    _labControl = control;
+  }
+
+  Main main = new Main();
 
   public Pane getListLabsBoundary() {
     GridPane panePrincipal = new GridPane();
@@ -29,7 +34,7 @@ public class ListLabsBoundary {
 
     Button btnAdd = Shared.appButtonNormal("Cadastrar");
     btnAdd.setOnAction(e -> {
-      control.addLab();
+      main.setPageView();
     });
 
     Region region1 = new Region();
@@ -39,12 +44,8 @@ public class ListLabsBoundary {
     hbox.setPadding(new Insets(0,0,10,0));
 
     panePrincipal.add(hbox,1,0);
-    panePrincipal.add(appTable(control.getLabs()),1,1);
+    panePrincipal.add(appTable(_labControl.getLabs()),1,1);
     panePrincipal.setStyle("-fx-background-color: #FFFFFF");
-
-    StringConverter longToStringConverter = new LongStringConverter();
-
-    Bindings.bindBidirectional(textId.textProperty(), control.idProperty(), longToStringConverter);
 
     return panePrincipal;
   }
