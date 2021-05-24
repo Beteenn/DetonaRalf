@@ -1,10 +1,10 @@
-package Control;
+package Repository;
 
 import Entity.Laboratorio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Repository {
+public class LaboratorioRepository {
   private ObservableList<Laboratorio> labs = FXCollections.observableArrayList();
 
   public void addLab(Laboratorio lab) {
