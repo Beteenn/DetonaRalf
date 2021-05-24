@@ -6,11 +6,12 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.util.Callback;
-
+import Control.ViewControl;
 
 public class Shared {
+
   public static GridPane appTopBar(boolean isHome) {
+
     GridPane header = new GridPane();
     header.setStyle("-fx-background-color: #FFFFFF");
     header.setPadding(new Insets(10));
@@ -36,13 +37,11 @@ public class Shared {
     GridPane.setColumnIndex(btnSair, 2);
 
     btnVoltar.setOnAction((e)->{
-      System.out.println("Voltando");
-      Main main = new Main();
-      main.setPreviousView();
+      ViewControl.setPageView("listLabsBoundary");
     });
 
     btnSair.setOnAction((e)->{
-      System.out.println("Saindo");
+
     });
     
     return header;

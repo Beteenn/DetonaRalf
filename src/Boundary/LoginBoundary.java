@@ -23,7 +23,6 @@ public class LoginBoundary {
     TextField inputSenha = Shared.appInput();
     Button buttonEntrar = Shared.appButtonNormal("Entrar");
 
-
     panePrincipal.add(tituloPagina,1, 0,2,1);
     panePrincipal.add(labelEmail,0, 1);
     panePrincipal.add(inputEmail,1, 1);

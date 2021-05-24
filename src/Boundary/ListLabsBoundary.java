@@ -1,9 +1,7 @@
 package Boundary;
 
 import Control.LaboratorioControl;
-import Control.Repository;
 import Entity.Laboratorio;
-import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -12,8 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
-import javafx.util.converter.LongStringConverter;
+
+import javax.swing.*;
 
 public class ListLabsBoundary {
   private LaboratorioControl _labControl;
@@ -87,16 +85,15 @@ public class ListLabsBoundary {
               Laboratorio lab = getTableView().getItems().get(getIndex());
               _labControl.setLab(lab);
               _labControl.navigatePages("updateLabBoundary");
-              System.out.println("Editando");
-              System.out.println("selectedData: " + lab.getId());
-              System.out.println("selectedData: " + lab.getDescricao());
             });
 
             btnDeletar.setOnAction((ActionEvent event) -> {
-              Laboratorio lab = getTableView().getItems().get(getIndex());
-              _labControl.removeLab(lab);
-              System.out.println("Deletando");
-              System.out.println("selectedData: " + lab.getDescricao());
+              int confirm =  JOptionPane.showConfirmDialog(null, "Laboratório deletado com Sucesso!");
+              if (confirm == 0) {
+                Laboratorio lab = getTableView().getItems().get(getIndex());
+                _labControl.removeLab(lab);
+                JOptionPane.showMessageDialog(null, "Laboratório deletado com Sucesso!");
+              }
             });
           }
 

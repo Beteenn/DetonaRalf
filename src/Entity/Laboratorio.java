@@ -5,6 +5,7 @@ public class Laboratorio {
   private String descricao;
   private int numero;
 
+  //region Getters and Setters
   public long getId() {
     return id;
   }
@@ -28,4 +29,6 @@ public class Laboratorio {
   public void setNumero(int numero) {
     this.numero = numero;
   }
+  //endregion
+
 }

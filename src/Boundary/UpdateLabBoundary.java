@@ -10,6 +10,8 @@ import javafx.scene.layout.*;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import javax.swing.*;
+
 public class UpdateLabBoundary {
     private LaboratorioControl _labControl;
 
@@ -35,8 +37,11 @@ public class UpdateLabBoundary {
         Button buttonSalvar = Shared.appButtonNormal("Salvar");
 
         buttonSalvar.setOnAction(event -> {
-            _labControl.updateLab();
-            _labControl.navigatePages("listLabsBoundary");
+            if (_labControl.updateLab()) {
+                _labControl.navigatePages("listLabsBoundary");
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possivel atualizar o laboratório!");
+            }
         });
 
         panePrincipal.add(pageHeader, 1, 0, 2, 1);

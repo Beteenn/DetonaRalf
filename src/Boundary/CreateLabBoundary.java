@@ -10,6 +10,8 @@ import javafx.scene.layout.*;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import javax.swing.JOptionPane;
+
 public class CreateLabBoundary {
     private LaboratorioControl _labControl;
 
@@ -49,7 +51,11 @@ public class CreateLabBoundary {
         Bindings.bindBidirectional(inputDescricao.textProperty(), _labControl.descricaoProperty());
 
         buttonCadastrar.setOnAction(e -> {
-            if (_labControl.addLab()) _labControl.navigatePages("listLabsBoundary");
+            if (_labControl.addLab()) {
+                _labControl.navigatePages("listLabsBoundary");
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o laboratório", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         return panePrincipal;
