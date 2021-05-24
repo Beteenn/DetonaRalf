@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -39,14 +40,36 @@ public class Main extends Application {
 
     }
 
-    public void setPageView() {
+    public void setPageView(String page) {
+        boolean isHome = false;
+        Pane pageComponent = homeBoundary.getHomeBoundary();
+
         GridPane gp = new GridPane();
         gp.setStyle("-fx-background-color: #FFFFFF");
         gp.setHgap(100);
         gp.setVgap(15);
 
-        panePrincipal.setTop(Shared.appTopBar(true));
-        panePrincipal.setCenter(createLabBoundary.getCreateLabBoundary());
+        if (page.equals("homeBoundary")) {
+            isHome = true;
+        }
+
+        switch (page) {
+            case "homeBoundary":
+                pageComponent = homeBoundary.getHomeBoundary();
+                break;
+            case "listLabsBoundary":
+                pageComponent = listLabsBoundary.getListLabsBoundary();
+                break;
+            case "createLabBoundary":
+                pageComponent = createLabBoundary.getCreateLabBoundary();
+                break;
+            case "updateLabBoundary":
+                pageComponent = updateLabBoundary.getUpdateLabBoundary();
+                break;
+        }
+
+        panePrincipal.setTop(Shared.appTopBar(isHome));
+        panePrincipal.setCenter(pageComponent);
 
         stage.setScene(scn);
     }

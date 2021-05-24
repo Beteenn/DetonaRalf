@@ -17,8 +17,6 @@ public class CreateLabBoundary {
         _labControl = control;
     }
 
-    Main main = new Main();
-
     public Pane getCreateLabBoundary() {
         GridPane panePrincipal = new GridPane();
         panePrincipal.setVgap(15);
@@ -44,14 +42,14 @@ public class CreateLabBoundary {
         panePrincipal.add(buttonCadastrar, 1, 3);
         panePrincipal.setStyle("-fx-background-color: #FFFFFF");
 
+        _labControl.clearLab();
+
         StringConverter intToStringConverter = new IntegerStringConverter();
         Bindings.bindBidirectional(inputNumero.textProperty(), _labControl.numeroProperty(), intToStringConverter);
         Bindings.bindBidirectional(inputDescricao.textProperty(), _labControl.descricaoProperty());
 
         buttonCadastrar.setOnAction(e -> {
-            System.out.println(_labControl.getNumero());
-            System.out.println(_labControl.getDescricao());
-            if (_labControl.addLab()) main.setPreviousView();
+            if (_labControl.addLab()) _labControl.navigatePages("listLabsBoundary");
         });
 
         return panePrincipal;

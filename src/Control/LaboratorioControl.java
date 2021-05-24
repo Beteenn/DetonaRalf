@@ -1,11 +1,13 @@
 package Control;
 
+import Boundary.Main;
 import Entity.Laboratorio;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class LaboratorioControl {
+  private Main mainView = new Main();
   private Repository _repLab = new Repository();
 
   private LongProperty id = new SimpleLongProperty(0);
@@ -38,14 +40,10 @@ public class LaboratorioControl {
     return true;
   }
 
-  public void updateLab() {
+  public boolean updateLab() {
     Laboratorio lab = getLab();
-    lab.setId(1);
-    if (_repLab.updateLab(lab)) {
-      System.out.println("Alterado");
-    } else {
-      System.out.println("Nao encontrado");
-    }
+
+    return _repLab.updateLab(lab);
   }
 
   public void list() {
@@ -58,16 +56,17 @@ public class LaboratorioControl {
     }
   }
 
-  private void clearLab() {
+  public void navigatePages(String namePage) {
+    mainView.setPageView(namePage);
+  }
+
+  public void clearLab() {
     descricao.setValue("");
     numero.setValue(0);
   }
 
-  public void removeLab() {
-    int index = _repLab.getLabs().size() - 1;
-    if (index >= 0) {
-      _repLab.removeLab(index);
-    }
+  public void removeLab(Laboratorio lab) {
+    _repLab.removeLab(lab);
   }
 
   public Laboratorio getLab() {

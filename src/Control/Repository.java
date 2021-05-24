@@ -23,13 +23,15 @@ public class Repository {
     return false;
   }
 
-  public boolean removeLab(int index) {
-    try{
-      labs.remove(index);
-      return true;
-    } catch(Exception e) {
-      return false;
+  public boolean removeLab(Laboratorio lab) {
+    for (Laboratorio labRep : this.labs) {
+      if (labRep.getId() == lab.getId()) {
+        labs.remove(lab);
+        System.out.println(labs.size());
+        return true;
+      }
     }
+    return false;
   }
 
   public ObservableList<Laboratorio> getLabs() {

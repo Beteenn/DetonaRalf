@@ -24,8 +24,6 @@ public class ListLabsBoundary {
 
   private TableView<Laboratorio> tabela = new TableView<>();
 
-  private Main main = new Main();
-
   public Pane getListLabsBoundary() {
     GridPane panePrincipal = new GridPane();
     panePrincipal.setAlignment(Pos.CENTER);
@@ -33,15 +31,15 @@ public class ListLabsBoundary {
     Label titulo = new Label("Laboratórios");
     titulo.setStyle("-fx-font-size: 20px");
 
-    Button btnAdd = Shared.appButtonNormal("Cadastrar");
-    btnAdd.setOnAction(e -> {
-      main.setPageView();
+    Button btnCadastrar = Shared.appButtonNormal("Cadastrar");
+    btnCadastrar.setOnAction(e -> {
+      _labControl.navigatePages("createLabBoundary");
     });
 
     Region region1 = new Region();
     HBox.setHgrow(region1, Priority.ALWAYS);
 
-    HBox hbox = new HBox(titulo, region1, btnAdd);
+    HBox hbox = new HBox(titulo, region1, btnCadastrar);
     hbox.setPadding(new Insets(0,0,10,0));
 
     panePrincipal.add(hbox,1,0);
@@ -61,7 +59,7 @@ public class ListLabsBoundary {
 
     TableColumn<Laboratorio, String> colunaDesc = new TableColumn<>("Descrição");
     colunaDesc.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-    colunaDesc.setMinWidth(500);
+    colunaDesc.setMinWidth(450);
 
 
     tabela.getColumns().addAll(colunaNumero, colunaDesc);
@@ -74,20 +72,38 @@ public class ListLabsBoundary {
 
   private void addButtonToTable() {
     TableColumn<Laboratorio, Void> colBtn = new TableColumn("Ações");
+    colBtn.setMinWidth(250);
 
     Callback<TableColumn<Laboratorio, Void>, TableCell<Laboratorio, Void>> cellFactory = new Callback<TableColumn<Laboratorio, Void>, TableCell<Laboratorio, Void>>() {
       @Override
       public TableCell<Laboratorio, Void> call(final TableColumn<Laboratorio, Void> param) {
         final TableCell<Laboratorio, Void> cell = new TableCell<Laboratorio, Void>() {
 
-          private final Button btn = new Button("Action");
+          private final Button btnEditar = Shared.appButtonNormal("Editar");
+          private final Button btnDeletar = Shared.appButtonNormal("Deletar");
 
           {
-            btn.setOnAction((ActionEvent event) -> {
+            btnEditar.setOnAction((ActionEvent event) -> {
               Laboratorio lab = getTableView().getItems().get(getIndex());
+              _labControl.setLab(lab);
+              _labControl.navigatePages("updateLabBoundary");
+              System.out.println("Editando");
               System.out.println("selectedData: " + lab.getId());
               System.out.println("selectedData: " + lab.getDescricao());
             });
+
+            btnDeletar.setOnAction((ActionEvent event) -> {
+              Laboratorio lab = getTableView().getItems().get(getIndex());
+              _labControl.removeLab(lab);
+              System.out.println("Deletando");
+              System.out.println("selectedData: " + lab.getDescricao());
+            });
+          }
+
+          HBox buttons = new HBox(btnEditar, btnDeletar);
+          {
+            buttons.setSpacing(10);
+            buttons.setAlignment(Pos.CENTER);
           }
 
           @Override
@@ -96,7 +112,7 @@ public class ListLabsBoundary {
             if (empty) {
               setGraphic(null);
             } else {
-              setGraphic(btn);
+              setGraphic(buttons);
             }
           }
         };

@@ -1,11 +1,14 @@
 package Boundary;
 
 import Control.LaboratorioControl;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 public class UpdateLabBoundary {
     private LaboratorioControl _labControl;
@@ -32,9 +35,8 @@ public class UpdateLabBoundary {
         Button buttonSalvar = Shared.appButtonNormal("Salvar");
 
         buttonSalvar.setOnAction(event -> {
-            _labControl.addLab();
             _labControl.updateLab();
-            _labControl.list();
+            _labControl.navigatePages("listLabsBoundary");
         });
 
         panePrincipal.add(pageHeader, 1, 0, 2, 1);
@@ -44,6 +46,10 @@ public class UpdateLabBoundary {
         panePrincipal.add(inputDescricao, 1, 2);
         panePrincipal.add(buttonSalvar, 1, 3);
         panePrincipal.setStyle("-fx-background-color: #FFFFFF");
+
+        StringConverter intToStringConverter = new IntegerStringConverter();
+        Bindings.bindBidirectional(inputNumero.textProperty(), _labControl.numeroProperty(), intToStringConverter);
+        Bindings.bindBidirectional(inputDescricao.textProperty(), _labControl.descricaoProperty());
 
         return panePrincipal;
     }

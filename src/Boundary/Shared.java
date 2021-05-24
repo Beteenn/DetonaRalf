@@ -25,7 +25,7 @@ public class Shared {
     Button btnVoltar = appButtonNormal("Voltar");
     Button btnSair = appButtonNormal("Sair");
 
-    if (isHome) {
+    if (!isHome) {
       header.getChildren().addAll(logo, btnVoltar, btnSair);
       GridPane.setColumnIndex(btnVoltar, 1);
     } else {
