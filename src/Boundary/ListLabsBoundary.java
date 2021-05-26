@@ -88,11 +88,11 @@ public class ListLabsBoundary {
             });
 
             btnDeletar.setOnAction((ActionEvent event) -> {
-              int confirm =  JOptionPane.showConfirmDialog(null, "Laboratório deletado com Sucesso!");
+              Laboratorio lab = getTableView().getItems().get(getIndex());
+              int confirm =  JOptionPane.showConfirmDialog(null, "Deletar o laboratório " + lab.getNumero() + "?");
               if (confirm == 0) {
-                Laboratorio lab = getTableView().getItems().get(getIndex());
                 _labControl.removeLab(lab);
-                JOptionPane.showMessageDialog(null, "Laboratório deletado com Sucesso!");
+                JOptionPane.showMessageDialog(null, "Laboratório deletado com sucesso!");
               }
             });
           }
