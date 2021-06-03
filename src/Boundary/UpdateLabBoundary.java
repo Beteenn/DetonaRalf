@@ -37,11 +37,11 @@ public class UpdateLabBoundary {
         Button buttonSalvar = Shared.appButtonNormal("Salvar");
 
         buttonSalvar.setOnAction(event -> {
-            if (_labControl.updateLab()) {
-                _labControl.navigatePages("listLabsBoundary");
-            } else {
-                JOptionPane.showMessageDialog(null, "Não foi possivel atualizar o laboratório!");
-            }
+//            if (_labControl.updateLab()) {
+//                _labControl.navigatePages("listLabsBoundary");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Não foi possivel atualizar o laboratório!");
+//            }
         });
 
         panePrincipal.add(pageHeader, 1, 0, 2, 1);

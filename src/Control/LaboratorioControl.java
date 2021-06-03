@@ -1,39 +1,75 @@
 package Control;
 
 import Entity.Laboratorio;
-import Repository.LaboratorioRepository;
+import Repository.ILabDao;
+import Repository.LabDao;
+//import Repository.LaboratorioRepository;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class LaboratorioControl {
-  private LaboratorioRepository _repLab = new LaboratorioRepository();
+
+  private ILabDao _labDao;
+
+  public LaboratorioControl(ILabDao labDao) {
+    _labDao = labDao;
+  }
 
   private LongProperty id = new SimpleLongProperty(0);
   private StringProperty descricao = new SimpleStringProperty("");
   private IntegerProperty numero = new SimpleIntegerProperty(0);
 
-  public boolean addLab() {
-    Laboratorio lab = getLab();
 
-    if (lab.getNumero() == 0) return false;
+  public List<Laboratorio> listLabs() throws SQLException {
+    List<Laboratorio> labs = new ArrayList<>();
+    labs = _labDao.listLabs();
 
-    if (lab.getDescricao().equals("")) return false;
-
-    if (_repLab.exists(lab)) return false;
-
-    lab.setId(_repLab.getLabs().size() + 1);
-    _repLab.addLab(lab);
-
-    clearLab();
-
-    return true;
+    return labs;
   }
 
-  public boolean updateLab() {
-    Laboratorio lab = getLab();
+  public Laboratorio getLab() throws SQLException {
+    Laboratorio lab = new Laboratorio();
+    lab.setId(4);
+    return _labDao.getLab(lab);
 
-    return _repLab.updateLab(lab);
   }
+
+  public void insertLab() throws SQLException {
+    Laboratorio lab = new Laboratorio();
+//    lab.setNumero(14);
+    lab.setDescricao("Testando a criação criada");
+    _labDao.insertLab(lab);
+  }
+
+  public void updateLab() throws SQLException {
+    Laboratorio lab = new Laboratorio();
+    lab.setId(4);
+
+    lab = _labDao.getLab(lab);
+
+    lab.setDescricao("Descricao atualizada pelo metodo que atualiza o atualizado");
+
+    _labDao.updateLab(lab);
+
+  }
+
+  public void deleteLab() throws SQLException {
+    Laboratorio lab = new Laboratorio();
+    lab.setId(3);
+
+    _labDao.deleteLab(lab);
+    System.out.println("Deletadassassasos");
+  }
+
+
+
+
+
+
 
   public void navigatePages(String namePage) {
     ViewControl.setPageView(namePage);
@@ -44,18 +80,14 @@ public class LaboratorioControl {
     numero.setValue(0);
   }
 
-  public void removeLab(Laboratorio lab) {
-    _repLab.removeLab(lab);
-  }
-
-  public Laboratorio getLab() {
-    Laboratorio lab = new Laboratorio();
-    lab.setId(id.get());
-    lab.setDescricao(descricao.get());
-    lab.setNumero(numero.get());
-
-    return lab;
-  }
+//  public Laboratorio getLab() {
+//    Laboratorio lab = new Laboratorio();
+//    lab.setId(id.get());
+//    lab.setDescricao(descricao.get());
+//    lab.setNumero(numero.get());
+//
+//    return lab;
+//  }
 
   public void setLab(Laboratorio lab) {
     if (lab != null) {
@@ -66,9 +98,9 @@ public class LaboratorioControl {
   }
 
   //region Getters
-  public ObservableList<Laboratorio> getLabs() {
-    return _repLab.getLabs();
-  }
+//  public ObservableList<Laboratorio> getLabs() {
+//    return _labDao.getLabs();
+//  }
 
   public long getId() {
     return id.get();

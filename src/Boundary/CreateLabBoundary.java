@@ -51,11 +51,11 @@ public class CreateLabBoundary {
         Bindings.bindBidirectional(inputDescricao.textProperty(), _labControl.descricaoProperty());
 
         buttonCadastrar.setOnAction(e -> {
-            if (_labControl.addLab()) {
-                _labControl.navigatePages("listLabsBoundary");
-            } else {
-                JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o laboratório", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
+//            if (_labControl.addLab()) {
+//                _labControl.navigatePages("listLabsBoundary");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o laboratório", "Erro", JOptionPane.ERROR_MESSAGE);
+//            }
         });
 
         return panePrincipal;

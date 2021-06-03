@@ -41,7 +41,7 @@ public class ListLabsBoundary {
     hbox.setPadding(new Insets(0,0,10,0));
 
     panePrincipal.add(hbox,1,0);
-    panePrincipal.add(appTable(_labControl.getLabs()),1,1);
+//    panePrincipal.add(appTable(_labControl.getLabs()),1,1);
     panePrincipal.setStyle("-fx-background-color: #FFFFFF");
 
     return panePrincipal;
@@ -91,7 +91,7 @@ public class ListLabsBoundary {
               Laboratorio lab = getTableView().getItems().get(getIndex());
               int confirm =  JOptionPane.showConfirmDialog(null, "Deletar o laboratório " + lab.getNumero() + "?");
               if (confirm == 0) {
-                _labControl.removeLab(lab);
+//                _labControl.removeLab(lab);
                 JOptionPane.showMessageDialog(null, "Laboratório deletado com sucesso!");
               }
             });

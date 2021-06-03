@@ -1,5 +1,6 @@
 package Boundary;
 
+import Control.ViewControl;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -22,6 +23,7 @@ public class HomeBoundary {
 
     buttonLab.setOnAction(e -> {
       System.out.println("Laboratorios");
+      ViewControl.setPageView("listLabsBoundary");
     });
 
     buttonProf.setOnAction(e -> {

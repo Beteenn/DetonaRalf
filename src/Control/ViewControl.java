@@ -1,11 +1,14 @@
 package Control;
 
 import Boundary.*;
+import Repository.ILabDao;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 public class ViewControl {
-  private static LaboratorioControl _labControl = new LaboratorioControl();
+
+  private static ILabDao labDao;
+  private static LaboratorioControl _labControl = new LaboratorioControl(labDao);
 
   private static ListLabsBoundary listLabsBoundary = new ListLabsBoundary(_labControl);
   private static HomeBoundary homeBoundary = new HomeBoundary();
