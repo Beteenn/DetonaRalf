@@ -2,7 +2,9 @@ package Control;
 
 import Boundary.*;
 import Repository.ILabDao;
+import Repository.IUsuarioDao;
 import Repository.LabDao;
+import Repository.UsuarioDao;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -11,6 +13,7 @@ import java.sql.SQLException;
 public class ViewControl {
 
   private static ILabDao labDao;
+  private static IUsuarioDao usuarioDao;
 
   static {
     try {
@@ -22,13 +25,27 @@ public class ViewControl {
     }
   }
 
-  private final static LaboratorioControl _labControl = new LaboratorioControl(labDao);
+  static {
+    try {
+      usuarioDao = new UsuarioDao();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
 
+  private final static LaboratorioControl _labControl = new LaboratorioControl(labDao);
+  private final static AuthControl authControl = new AuthControl(usuarioDao);
+
+  private final static LoginBoundary loginBoundary = new LoginBoundary(authControl);
   private final static ListLabsBoundary listLabsBoundary = new ListLabsBoundary(_labControl);
   private final static HomeBoundary homeBoundary = new HomeBoundary();
-  private final static LoginBoundary loginBoundary = new LoginBoundary();
   private final static CreateLabBoundary createLabBoundary = new CreateLabBoundary(_labControl);
   private final static UpdateLabBoundary updateLabBoundary = new UpdateLabBoundary(_labControl);
+
+  public ViewControl() throws SQLException, ClassNotFoundException {
+  }
 
   public static void setPageView(String page) {
     boolean isHome = false;
@@ -44,6 +61,9 @@ public class ViewControl {
     }
 
     switch (page) {
+      case "loginBoundary":
+        pageComponent = loginBoundary.getLoginBoundary();
+        break;
       case "homeBoundary":
         pageComponent = homeBoundary.getHomeBoundary();
         break;
