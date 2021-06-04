@@ -11,6 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.util.Callback;
 
+import java.sql.SQLException;
+
 import javax.swing.*;
 
 public class ListLabsBoundary {
@@ -38,10 +40,16 @@ public class ListLabsBoundary {
     HBox.setHgrow(region1, Priority.ALWAYS);
 
     HBox hbox = new HBox(titulo, region1, btnCadastrar);
-    hbox.setPadding(new Insets(0,0,10,0));
+    hbox.setPadding(new Insets(0, 0, 10, 0));
 
-    panePrincipal.add(hbox,1,0);
-//    panePrincipal.add(appTable(_labControl.getLabs()),1,1);
+    panePrincipal.add(hbox, 1, 0);
+
+    try {
+      panePrincipal.add(appTable(_labControl.listLabs()), 1, 1);
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    }
+
     panePrincipal.setStyle("-fx-background-color: #FFFFFF");
 
     return panePrincipal;
@@ -58,7 +66,6 @@ public class ListLabsBoundary {
     TableColumn<Laboratorio, String> colunaDesc = new TableColumn<>("Descrição");
     colunaDesc.setCellValueFactory(new PropertyValueFactory<>("descricao"));
     colunaDesc.setMinWidth(450);
-
 
     tabela.getColumns().addAll(colunaNumero, colunaDesc);
 
@@ -89,9 +96,14 @@ public class ListLabsBoundary {
 
             btnDeletar.setOnAction((ActionEvent event) -> {
               Laboratorio lab = getTableView().getItems().get(getIndex());
-              int confirm =  JOptionPane.showConfirmDialog(null, "Deletar o laboratório " + lab.getNumero() + "?");
+              int confirm = JOptionPane.showConfirmDialog(null, "Deletar o laboratório " + lab.getNumero() + "?");
               if (confirm == 0) {
-//                _labControl.removeLab(lab);
+                try {
+                  _labControl.deleteLab(lab);
+                  appTable(_labControl.listLabs());
+                } catch (SQLException e) {
+                  e.printStackTrace();
+                }
                 JOptionPane.showMessageDialog(null, "Laboratório deletado com sucesso!");
               }
             });

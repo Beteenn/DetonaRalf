@@ -2,20 +2,33 @@ package Control;
 
 import Boundary.*;
 import Repository.ILabDao;
+import Repository.LabDao;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+
+import java.sql.SQLException;
 
 public class ViewControl {
 
   private static ILabDao labDao;
-  private static LaboratorioControl _labControl = new LaboratorioControl(labDao);
 
-  private static ListLabsBoundary listLabsBoundary = new ListLabsBoundary(_labControl);
-  private static HomeBoundary homeBoundary = new HomeBoundary();
-  private static LoginBoundary loginBoundary = new LoginBoundary();
-  private static CreateLabBoundary createLabBoundary= new CreateLabBoundary(_labControl);
-  private static UpdateLabBoundary updateLabBoundary= new UpdateLabBoundary(_labControl);
+  static {
+    try {
+      labDao = new LabDao();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
 
+  private final static LaboratorioControl _labControl = new LaboratorioControl(labDao);
+
+  private final static ListLabsBoundary listLabsBoundary = new ListLabsBoundary(_labControl);
+  private final static HomeBoundary homeBoundary = new HomeBoundary();
+  private final static LoginBoundary loginBoundary = new LoginBoundary();
+  private final static CreateLabBoundary createLabBoundary = new CreateLabBoundary(_labControl);
+  private final static UpdateLabBoundary updateLabBoundary = new UpdateLabBoundary(_labControl);
 
   public static void setPageView(String page) {
     boolean isHome = false;
