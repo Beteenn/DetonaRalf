@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class UsuarioDao implements IUsuarioDao {
 
@@ -65,6 +66,33 @@ public class UsuarioDao implements IUsuarioDao {
     rs.close();
 
     return usuario;
+  }
+
+  public Usuario getUsuarioByLogin(String email, String senha) throws SQLException {
+    String sql = "SELECT * from usuario WHERE email = ? AND senha = ?";
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setString(1, email);
+    ps.setString(2, senha);
+    ResultSet rs = ps.executeQuery();
+
+    if (rs.next()) {
+      Usuario usuario = new Usuario();
+      usuario.setId(rs.getInt("id"));
+      usuario.setEmail(rs.getString("email"));
+      usuario.setNome(rs.getString("nome"));
+      usuario.setSenha(rs.getString("senha"));
+      usuario.setPerfilId(rs.getInt("perfil_id"));
+
+      ps.close();
+      rs.close();
+
+      return usuario;
+    }
+
+    ps.close();
+    rs.close();
+
+    return null;
   }
 
 }

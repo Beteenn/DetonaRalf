@@ -13,9 +13,9 @@ public class Main extends Application {
     public static Scene scn = new Scene(panePrincipal, 1280, 720);
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         stage = primaryStage;
-        ViewControl.setPageView("homeBoundary");
+        ViewControl.setPageView("loginBoundary");
         primaryStage.setTitle("Detona Ralf");
         primaryStage.show();
     }
