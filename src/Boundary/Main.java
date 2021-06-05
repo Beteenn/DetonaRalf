@@ -27,6 +27,8 @@ public class Main extends Application implements ExecutorAcoes {
     private TelaStrategy loginBoundary = new LoginBoundary(this);
     private TelaStrategy createProfessorBoundary = new CreateProfessorBoundary();
 
+    private Header header = new Header();
+
     public static BorderPane bp = new BorderPane();
 
     private Map<String, TelaStrategy> mapaTelas = new HashMap<>();
@@ -60,6 +62,9 @@ public class Main extends Application implements ExecutorAcoes {
     @Override
     public void navigate(String acao) {
         TelaStrategy tela = mapaTelas.get(acao);
+        boolean isHome = false;
+        if (acao.equals("homeBoundary")) isHome = true;
+        bp.setTop(header.getTopBar(isHome));
         bp.setCenter(tela.getBoundary());
     }
 
