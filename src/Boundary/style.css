@@ -52,17 +52,12 @@
     -fx-pref-height: 10px;
 }
 
-.menuButton {
+.combo-box {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
     -fx-font-size: 14px;
     -fx-border-color: #757575;
     -fx-border-insets: 1px;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 10px;
 }
-
-.menuItem {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
-    -fx-font-size: 14px;
-}
-

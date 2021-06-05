@@ -22,6 +22,7 @@ public class Main extends Application implements ExecutorAcoes {
     private TelaStrategy loginBoundary = new LoginBoundary(this);
     private TelaStrategy createProfessorBoundary = new CreateProfessorBoundary(this);
     private TelaStrategy editProfessorBoundary = new EditProfessorBoundary(this);
+    private TelaStrategy createReservaBoundary = new CreateReservaBoundary(this);
 
     private Header header = new Header(this);
 
@@ -40,6 +41,7 @@ public class Main extends Application implements ExecutorAcoes {
         mapaTelas.put("listProfessoresBoundary", listProfessoresBoundary);
         mapaTelas.put("homeProfessorBoundary", homeProfessorBoundary);
         mapaTelas.put("editProfessorBoundary", editProfessorBoundary);
+        mapaTelas.put("createReservaBoundary", createReservaBoundary);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class Main extends Application implements ExecutorAcoes {
 
         gerarMapaTelas();
 
-        bp.setCenter(loginBoundary.getBoundary());
+        bp.setCenter(createReservaBoundary.getBoundary());
 
         scn.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
@@ -73,9 +75,9 @@ public class Main extends Application implements ExecutorAcoes {
         boolean isHome = false;
         if (acao.contains("home"))
             isHome = true;
+
         bp.setTop(header.getTopBar(isHome));
         bp.setCenter(tela.getBoundary());
-
     }
 
 }
