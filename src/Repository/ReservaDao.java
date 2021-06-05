@@ -23,8 +23,8 @@ public class ReservaDao implements IReservaDao{
     if (rs.next()){
       reserva.setLabId(rs.getInt("laboratorio_id"));
       reserva.setUsuarioId(rs.getInt("usuario_id"));
-      reserva.setEntregaDate(rs.getTimestamp("entrega_date").toInstant());
-      reserva.setReservaDate(rs.getTimestamp("reserva_date").toInstant());
+      reserva.setEntregaDate(rs.getTimestamp("entrega").toLocalDateTime());
+      reserva.setReservaDate(rs.getTimestamp("reserva").toLocalDateTime());
     }
 
     rs.close();
@@ -52,24 +52,24 @@ public class ReservaDao implements IReservaDao{
 
   @Override
   public void insertReserva(Reserva reserva) throws SQLException {
-    String sql = "INSERT INTO reserva (laboratorio_id, usuario_id, reserva_date, entrega_date) VALUES (?,?,?,?)";
+    String sql = "INSERT INTO reserva (laboratorio_id, usuario_id, reserva, entrega) VALUES (?,?,?,?)";
     PreparedStatement ps = connection.prepareStatement(sql);
     ps.setInt(1, reserva.getLabId());
     ps.setInt(2, reserva.getUsuarioId());
-    ps.setTimestamp(3, Timestamp.from(reserva.getReservaDate()));
-    ps.setTimestamp(4, Timestamp.from(reserva.getEntregaDate()));
+    ps.setTimestamp(3, Timestamp.valueOf(reserva.getReservaDate()));
+    ps.setTimestamp(4, Timestamp.valueOf(reserva.getEntregaDate()));
     ps.execute();
     ps.close();
   }
 
   @Override
   public void updateReserva(Reserva reserva) throws SQLException {
-    String sql = "UPDATE reserva SET laboratorio_id = ?, usuario_id = ?, reserva_date = ?, entrega_date = ? WHERE id = ?";
+    String sql = "UPDATE reserva SET laboratorio_id = ?, usuario_id = ?, reserva = ?, entrega = ? WHERE id = ?";
     PreparedStatement ps = connection.prepareStatement(sql);
     ps.setInt(1, reserva.getLabId());
     ps.setInt(2, reserva.getUsuarioId());
-    ps.setTimestamp(3, Timestamp.from(reserva.getReservaDate()));
-    ps.setTimestamp(4, Timestamp.from(reserva.getEntregaDate()));
+    ps.setTimestamp(3, Timestamp.valueOf(reserva.getReservaDate()));
+    ps.setTimestamp(4, Timestamp.valueOf(reserva.getEntregaDate()));
     ps.setInt(5, reserva.getId());
     ps.execute();
     ps.close();

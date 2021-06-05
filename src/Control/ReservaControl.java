@@ -4,18 +4,14 @@ import Entity.Laboratorio;
 import Entity.Reserva;
 import Repository.IReservaDao;
 import Repository.ReservaDao;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ReservaControl {
@@ -29,23 +25,54 @@ public class ReservaControl {
     }
   }
 
+  ObservableList<Laboratorio> labsDisponiveis;
+
+  AuthControl authControl = new AuthControl();
+
+  public ReservaControl() {
+    carregaHoras();
+    labsDisponiveis = labControl.listLabs();
+  }
+
+  private final List<Integer> horasInicio = new ArrayList<Integer>();
+  private final List<Integer> horasFim = new ArrayList<Integer>();
+
+  public void carregaHoras() {
+    for (int i = 9; i < 23; i++){
+      horasInicio.add(i);
+    }
+    for (int i = 9; i < 23; i++){
+      horasFim.add(i);
+    }
+  }
+
   LaboratorioControl labControl = new LaboratorioControl();
 
   public static ObservableList<String> labs = FXCollections.observableArrayList();
-  public static ObservableList<String> datasInicio = FXCollections.observableArrayList("Data 1", "Data 2", "Data 3");
-  public static ObservableList<String> datasFinal = FXCollections.observableArrayList("Data Final 1", "Data Final 2",
-      "Data Final 3");
+  public static ObservableList<String> datasInicio = FXCollections.observableArrayList();
+  public static ObservableList<String> datasFinal = FXCollections.observableArrayList();
 
-  private IntegerProperty id = new SimpleIntegerProperty(0);
-  private IntegerProperty usuarioId = new SimpleIntegerProperty(0);
-  private IntegerProperty labId = new SimpleIntegerProperty(0);
-  private StringProperty dataReserva = new SimpleStringProperty("");
-  private StringProperty dataEntrega = new SimpleStringProperty("");
+  //ToDo fazer Select
+  public void horasIniciaisDisponiveis() {
+    for (Integer i : horasInicio) {
+      datasInicio.add(i.toString()+":00");
+    }
+  }
 
-  public ObservableList<String> listLabs() {
-    ObservableList<Laboratorio> tempLabs;
-    tempLabs = labControl.listLabs();
-    for (Laboratorio lab : tempLabs) {
+  //ToDo fazer Select
+  public void horasFinaisDisponiveis() {
+    for (Integer i : horasFim) {
+      datasFinal.add(i.toString()+":00");
+    }
+  }
+
+  private StringProperty labTela = new SimpleStringProperty("");
+  private StringProperty horaInicial = new SimpleStringProperty("");
+  private StringProperty horaFinal = new SimpleStringProperty("");
+
+
+  public ObservableList<String> listLabsTela() {
+    for (Laboratorio lab : labsDisponiveis) {
       labs.add(lab.getNumero() + " - " + lab.getDescricao());
     }
 
@@ -76,14 +103,24 @@ public class ReservaControl {
   }
 
   public boolean insertReserva() {
+    if (labTela.get().equals("") || horaInicial.get().equals("") || horaFinal.get().equals("")) return false;
 
-    Timestamp reservaDate = new Timestamp(new Date().getTime());
+    int numeroLab = Integer.parseInt(labTela.get().split(" - ")[0]);
+    String descricaoLab = labTela.get().split(" - ")[1];
+
+    Laboratorio lab = null;
+
+    for(Laboratorio _lab : labsDisponiveis) {
+      if (_lab.getNumero() == numeroLab && _lab.getDescricao().equals(descricaoLab)) lab = _lab;
+    }
+
+    if (lab == null) return false;
 
     Reserva reserva = new Reserva();
-    reserva.setLabId(1);
-    reserva.setUsuarioId(1);
-    reserva.setReservaDate(Instant.now());
-    reserva.setEntregaDate(Instant.now());
+    reserva.setLabId(lab.getId());
+    reserva.setUsuarioId(authControl.getCurrentUser().getId());
+    reserva.setReservaDate(LocalDate.now().atTime(Integer.parseInt(horaInicial.get().split(":")[0]),0));
+    reserva.setEntregaDate(LocalDate.now().atTime(Integer.parseInt(horaFinal.get().split(":")[0]),0));
     try {
       _reservaDao.insertReserva(reserva);
     } catch (SQLException e) {
@@ -125,44 +162,28 @@ public class ReservaControl {
     System.out.println("Reserva deletada");
   }
 
-  public int getId() {
-    return id.get();
+  public String getLabTela() {
+    return labTela.get();
   }
 
-  public IntegerProperty idProperty() {
-    return id;
+  public StringProperty labTelaProperty() {
+    return labTela;
   }
 
-  public int getUsuarioId() {
-    return usuarioId.get();
+  public String getHoraInicial() {
+    return horaInicial.get();
   }
 
-  public IntegerProperty usuarioIdProperty() {
-    return usuarioId;
+  public StringProperty horaInicialProperty() {
+    return horaInicial;
   }
 
-  public int getLabId() {
-    return labId.get();
+  public String getHoraFinal() {
+    return horaFinal.get();
   }
 
-  public IntegerProperty labIdProperty() {
-    return labId;
-  }
-
-  public String getDataReserva() {
-    return dataReserva.get();
-  }
-
-  public StringProperty dataReservaProperty() {
-    return dataReserva;
-  }
-
-  public String getDataEntrega() {
-    return dataEntrega.get();
-  }
-
-  public StringProperty dataEntregaProperty() {
-    return dataEntrega;
+  public StringProperty horaFinalProperty() {
+    return horaFinal;
   }
 
 }

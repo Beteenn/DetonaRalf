@@ -34,7 +34,7 @@ public class AuthControl {
   public void logout() {}
 
   // getter
-  public static Usuario getCurrentUser() { return currentUser; }
+  public Usuario getCurrentUser() { return currentUser; }
 }
 
 

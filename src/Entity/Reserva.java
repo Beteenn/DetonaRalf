@@ -1,14 +1,14 @@
 package Entity;
 
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class Reserva {
   private int id;
   private int usuarioId;
   private int labId;
-  private Instant reservaDate;
-  private Instant entregaDate;
+  private LocalDateTime reservaDate;
+  private LocalDateTime entregaDate;
 
   // region Getters and Setters
   public int getId() {
@@ -35,19 +35,19 @@ public class Reserva {
     this.labId = labId;
   }
 
-  public Instant getReservaDate() {
+  public LocalDateTime getReservaDate() {
     return reservaDate;
   }
 
-  public void setReservaDate(Instant reservaDate) {
+  public void setReservaDate(LocalDateTime reservaDate) {
     this.reservaDate = reservaDate;
   }
 
-  public Instant getEntregaDate() {
+  public LocalDateTime getEntregaDate() {
     return entregaDate;
   }
 
-  public void setEntregaDate(Instant entregaDate) {
+  public void setEntregaDate(LocalDateTime entregaDate) {
     this.entregaDate = entregaDate;
   }
 // endregion

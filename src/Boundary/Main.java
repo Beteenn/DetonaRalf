@@ -50,7 +50,7 @@ public class Main extends Application implements ExecutorAcoes {
 
         gerarMapaTelas();
 
-        bp.setCenter(createReservaBoundary.getBoundary());
+        bp.setCenter(loginBoundary.getBoundary());
 
         scn.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 

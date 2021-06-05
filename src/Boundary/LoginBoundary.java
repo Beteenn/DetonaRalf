@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import javax.swing.*;
+
 public class LoginBoundary implements TelaStrategy {
 
   private ExecutorAcoes executor;
@@ -40,14 +42,12 @@ public class LoginBoundary implements TelaStrategy {
     panePrincipal.add(buttonEntrar, 1, 3);
 
     buttonEntrar.setOnAction(e -> {
-      // Integer currentUserPerfilId = authControl.login(inputEmail.getText(),
-      // inputSenha.getText());
-      // if (currentUserPerfilId == null)
-      // JOptionPane.showMessageDialog(null, "Error", "Login inválido. Tente
-      // novamente!",
-      // JOptionPane.ERROR_MESSAGE);
-      // else executor.navigate("homeBoundary");
-      executor.navigate("homeBoundary");
+       Integer currentUserPerfilId = authControl.login(inputEmail.getText(),
+       inputSenha.getText());
+       if (currentUserPerfilId == null)
+       JOptionPane.showMessageDialog(null, "Error", "Login inválido. Tente novamente!",
+       JOptionPane.ERROR_MESSAGE);
+       else executor.navigate("createReservaBoundary");
     });
 
     return panePrincipal;

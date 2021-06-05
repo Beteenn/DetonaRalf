@@ -1,17 +1,15 @@
 package Boundary;
 
 import Control.ReservaControl;
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.util.StringConverter;
-import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.LocalDateStringConverter;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class CreateReservaBoundary implements TelaStrategy {
     private ReservaControl reservaControl = new ReservaControl();
@@ -27,7 +25,6 @@ public class CreateReservaBoundary implements TelaStrategy {
         panePrincipal.setVgap(15);
         panePrincipal.setHgap(15);
         panePrincipal.setAlignment(Pos.CENTER);
-        reservaControl.listLabs();
 
         Label tituloLabel = new Label("Cadastro de Reserva");
         tituloLabel.getStyleClass().add("titulo");
@@ -35,12 +32,16 @@ public class CreateReservaBoundary implements TelaStrategy {
         HBox pageHeader = new HBox(tituloLabel);
 
         Label labelLab = new Label("Laboratorio");
-        ComboBox comboLabs = new ComboBox<String>(reservaControl.labs);
+        ComboBox comboLabs = new ComboBox<String>(reservaControl.listLabsTela());
         Label labeldataInicio = new Label("Hora Inicio");
         ComboBox comboDataInicio = new ComboBox<String>(reservaControl.datasInicio);
         Label labeldataFinal = new Label("Hora Final");
         ComboBox comboDataFinal = new ComboBox<String>(reservaControl.datasFinal);
         Button buttonReservar = new Button("Reservar");
+
+        comboDataInicio.setDisable(true);
+        comboDataFinal.setDisable(true);
+
 
         panePrincipal.add(pageHeader, 1, 0, 2, 1);
         panePrincipal.add(labelLab, 0, 1);
@@ -52,29 +53,32 @@ public class CreateReservaBoundary implements TelaStrategy {
         panePrincipal.add(buttonReservar, 1, 4);
 
         // reservaControl.clearLab();
-        StringConverter dateToStringConverter = new LocalDateStringConverter();
-        // Bindings.bindBidirectional(comboLabs.getValue(), reservaControl.(),
-        // intToStringConverter);
-        // Bindings.bindBidirectional(comboDataInicio.getValue(),
-        // reservaControl.dataReservaProperty());
-        // Bindings.bindBidirectional(comboDataFinal.getValue(),
-        // reservaControl.dataEntregaProperty());
+//        StringConverter dateToStringConverter = new LocalDateStringConverter();
+//        StringConverter intToStringConverter = new IntegerStringConverter();
+        comboLabs.valueProperty().bindBidirectional(reservaControl.labTelaProperty());
+        comboDataInicio.valueProperty().bindBidirectional(reservaControl.horaInicialProperty());
+        comboDataFinal.valueProperty().bindBidirectional(reservaControl.horaFinalProperty());
 
         buttonReservar.setOnAction(e -> {
-            System.out.println("LAB " + comboLabs.getValue());
-            System.out.println("INICIO " + comboDataInicio.getValue());
-            System.out.println("FINAL " + comboDataFinal.getValue());
+             if (reservaControl.insertReserva()) {
+//                executor.navigate("");
+                 System.out.println("Reservado");
+             } else {
+             JOptionPane.showMessageDialog(null, "Não foi possivel reservar!", "Erro",
+             JOptionPane.ERROR_MESSAGE);
+             }
+        });
 
-            // if (reservaControl.insertReserva()) {
-            // executor.navigate("listProfessoresBoundary");
-            // } else {
-            // JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o
-            // laboratório", "Erro",
-            // JOptionPane.ERROR_MESSAGE);
-            // }
+        comboLabs.setOnAction(e -> {
+            reservaControl.horasIniciaisDisponiveis();
+            comboDataInicio.setDisable(false);
+        });
+
+        comboDataInicio.setOnAction(e -> {
+            reservaControl.horasFinaisDisponiveis();
+            comboDataFinal.setDisable(false);
         });
 
         return panePrincipal;
     }
-
 }
