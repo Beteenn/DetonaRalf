@@ -4,7 +4,6 @@ import Entity.Laboratorio;
 import Repository.ILabDao;
 import Repository.LabDao;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
@@ -23,29 +22,42 @@ public class LaboratorioControl {
 
   private ObservableList<Laboratorio> labs;
 
-
   private static IntegerProperty id = new SimpleIntegerProperty(0);
   private static StringProperty descricao = new SimpleStringProperty("");
   private static IntegerProperty numero = new SimpleIntegerProperty(0);
 
-  public ObservableList<Laboratorio> listLabs() throws SQLException {
-    labs = _labDao.listLabs();
+  public ObservableList<Laboratorio> listLabs() {
+    try {
+      labs = _labDao.listLabs();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
     return labs;
   }
 
-  public Laboratorio getLab() throws SQLException {
+  public Laboratorio getLab() {
     Laboratorio lab = new Laboratorio();
     lab.setId(4);
-    return _labDao.getLab(lab);
+    try {
+      lab = _labDao.getLab(lab);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return lab;
 
   }
 
-  public boolean insertLab() throws SQLException {
+  public boolean insertLab() {
     Laboratorio lab = new Laboratorio();
     lab.setDescricao(descricao.get());
     lab.setNumero(numero.get());
-    _labDao.insertLab(lab);
+    try {
+      _labDao.insertLab(lab);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
     return true;
   }
@@ -69,11 +81,7 @@ public class LaboratorioControl {
       throwables.printStackTrace();
     }
 
-    try {
-      listLabs();
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
+    listLabs();
   }
 
   public void clearLab() {

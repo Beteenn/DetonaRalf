@@ -9,10 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
-
-import java.awt.HeadlessException;
-import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 
 public class CreateLabBoundary implements TelaStrategy {
@@ -55,16 +51,11 @@ public class CreateLabBoundary implements TelaStrategy {
         Bindings.bindBidirectional(inputDescricao.textProperty(), _labControl.descricaoProperty());
 
         buttonCadastrar.setOnAction(e -> {
-            try {
-                if (_labControl.insertLab()) {
-                    executor.navigate("listLabsBoundary");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o laboratório", "Erro",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (HeadlessException | SQLException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+            if (_labControl.insertLab()) {
+                executor.navigate("listLabsBoundary");
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o laboratório", "Erro",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 
