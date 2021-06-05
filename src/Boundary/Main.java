@@ -1,21 +1,52 @@
 package Boundary;
 
-import Control.ViewControl;
+import Control.LaboratorioControl;
+import Repository.ILabDao;
+import Repository.LabDao;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
-    public static Stage stage;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-    public static BorderPane panePrincipal = new BorderPane();
-    public static Scene scn = new Scene(panePrincipal, 1280, 720);
+public class Main extends Application implements ExecutorAcoes {
+
+    private LaboratorioControl labControl = new LaboratorioControl();
+
+    private TelaStrategy createLabBoundary = new CreateLabBoundary(this);
+    private TelaStrategy listLabsBoundary = new ListLabsBoundary(this);
+    private TelaStrategy homeBoundary = new HomeBoundary(this);
+    private TelaStrategy updateLabBoundary = new UpdateLabBoundary(this);
+    private TelaStrategy loginBoundary = new LoginBoundary(this);
+
+    public static BorderPane bp = new BorderPane();
+
+    private Map<String, TelaStrategy> mapaTelas = new HashMap<>();
+
+    private void gerarMapaTelas() {
+        mapaTelas.put("createLabBoundary", createLabBoundary);
+        mapaTelas.put("listLabsBoundary", listLabsBoundary);
+        mapaTelas.put("homeBoundary", homeBoundary);
+        mapaTelas.put("updateLabBoundary", updateLabBoundary);
+        mapaTelas.put("loginBoundary", loginBoundary);
+    }
 
     @Override
     public void start(Stage primaryStage) {
-        stage = primaryStage;
-        ViewControl.setPageView("loginBoundary");
+        Scene scn = new Scene(bp, 1280, 720);
+
+        gerarMapaTelas();
+
+        bp.setCenter(loginBoundary.getBoundary());
+
+        primaryStage.setScene(scn);
         primaryStage.setTitle("Detona Ralf");
         primaryStage.show();
     }
@@ -23,4 +54,11 @@ public class Main extends Application {
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }
+
+    @Override
+    public void navigate(String acao) {
+        TelaStrategy tela = mapaTelas.get(acao);
+        bp.setCenter(tela.getBoundary());
+    }
+
 }

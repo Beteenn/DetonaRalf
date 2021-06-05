@@ -15,25 +15,26 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-public class ListLabsBoundary {
-  private LaboratorioControl _labControl;
+public class ListLabsBoundary implements TelaStrategy{
+  private LaboratorioControl _labControl = new LaboratorioControl();
+  private ExecutorAcoes executor;
 
-  public ListLabsBoundary(LaboratorioControl control) {
-    _labControl = control;
+  public ListLabsBoundary(ExecutorAcoes executor) {
+    this.executor = executor;
   }
 
   private TableView<Laboratorio> tabela = new TableView<>();
 
-  public Pane getListLabsBoundary() {
+  public Pane getBoundary() {
     GridPane panePrincipal = new GridPane();
     panePrincipal.setAlignment(Pos.CENTER);
 
     Label titulo = new Label("Laboratórios");
     titulo.setStyle("-fx-font-size: 20px");
 
-    Button btnCadastrar = Shared.appButtonNormal("Cadastrar");
+    Button btnCadastrar = new Button("Cadastrar");
     btnCadastrar.setOnAction(e -> {
-      _labControl.navigatePages("createLabBoundary");
+      executor.navigate("createLabBoundary");
     });
 
     Region region1 = new Region();
@@ -84,14 +85,14 @@ public class ListLabsBoundary {
       public TableCell<Laboratorio, Void> call(final TableColumn<Laboratorio, Void> param) {
         final TableCell<Laboratorio, Void> cell = new TableCell<Laboratorio, Void>() {
 
-          private final Button btnEditar = Shared.appButtonNormal("Editar");
-          private final Button btnDeletar = Shared.appButtonNormal("Deletar");
+          private final Button btnEditar = new Button("Editar");
+          private final Button btnDeletar = new Button("Deletar");
 
           {
             btnEditar.setOnAction((ActionEvent event) -> {
               Laboratorio lab = getTableView().getItems().get(getIndex());
               _labControl.setLab(lab);
-              _labControl.navigatePages("updateLabBoundary");
+              executor.navigate("updateLabBoundary");
             });
 
             btnDeletar.setOnAction((ActionEvent event) -> {
@@ -104,7 +105,6 @@ public class ListLabsBoundary {
                 } catch (SQLException e) {
                   e.printStackTrace();
                 }
-                JOptionPane.showMessageDialog(null, "Laboratório deletado com sucesso!");
               }
             });
           }

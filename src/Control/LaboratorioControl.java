@@ -2,6 +2,7 @@ package Control;
 
 import Entity.Laboratorio;
 import Repository.ILabDao;
+import Repository.LabDao;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,15 +12,21 @@ import java.sql.SQLException;
 public class LaboratorioControl {
 
   private ILabDao _labDao;
-  private ObservableList<Laboratorio> labs;
 
-  public LaboratorioControl(ILabDao labDao) {
-    _labDao = labDao;
+  {
+    try {
+      _labDao = new LabDao();
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  private IntegerProperty id = new SimpleIntegerProperty(0);
-  private StringProperty descricao = new SimpleStringProperty("");
-  private IntegerProperty numero = new SimpleIntegerProperty(0);
+  private ObservableList<Laboratorio> labs;
+
+
+  private static IntegerProperty id = new SimpleIntegerProperty(0);
+  private static StringProperty descricao = new SimpleStringProperty("");
+  private static IntegerProperty numero = new SimpleIntegerProperty(0);
 
   public ObservableList<Laboratorio> listLabs() throws SQLException {
     labs = _labDao.listLabs();
@@ -43,22 +50,30 @@ public class LaboratorioControl {
     return true;
   }
 
-  public boolean updateLab() throws SQLException {
+  public boolean updateLab() {
 
-    _labDao.updateLab(getLabProperty());
+    try {
+      _labDao.updateLab(getLabProperty());
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
 
     return true;
 
   }
 
-  public void deleteLab(Laboratorio lab) throws SQLException {
-    _labDao.deleteLab(lab.getId());
+  public void deleteLab(Laboratorio lab) {
+    try {
+      _labDao.deleteLab(lab.getId());
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
 
-    listLabs();
-  }
-
-  public void navigatePages(String namePage) {
-    ViewControl.setPageView(namePage);
+    try {
+      listLabs();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
   }
 
   public void clearLab() {

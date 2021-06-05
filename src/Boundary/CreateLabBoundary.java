@@ -15,14 +15,16 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-public class CreateLabBoundary {
-    private LaboratorioControl _labControl;
+public class CreateLabBoundary implements TelaStrategy{
+    private LaboratorioControl _labControl = new LaboratorioControl();
+    private ExecutorAcoes executor;
 
-    public CreateLabBoundary(LaboratorioControl control) {
-        _labControl = control;
+    public CreateLabBoundary(ExecutorAcoes executor) {
+        this.executor = executor;
     }
 
-    public Pane getCreateLabBoundary() {
+    @Override
+    public Pane getBoundary() {
         GridPane panePrincipal = new GridPane();
         panePrincipal.setVgap(15);
         panePrincipal.setHgap(15);
@@ -33,11 +35,11 @@ public class CreateLabBoundary {
 
         HBox pageHeader = new HBox(tituloLabel);
 
-        Label labelNumero = Shared.appLabel("Número");
-        TextField inputNumero = Shared.appInput();
-        Label labelDescricao = Shared.appLabel("Descrição");
-        TextField inputDescricao = Shared.appInput();
-        Button buttonCadastrar = Shared.appButtonNormal("Cadastrar");
+        Label labelNumero = new Label("Número");
+        TextField inputNumero = new TextField();
+        Label labelDescricao = new Label("Descrição");
+        TextField inputDescricao = new TextField();
+        Button buttonCadastrar = new Button("Cadastrar");
 
         panePrincipal.add(pageHeader, 1, 0, 2, 1);
         panePrincipal.add(labelNumero, 0, 1);
@@ -56,7 +58,7 @@ public class CreateLabBoundary {
         buttonCadastrar.setOnAction(e -> {
             try {
                 if (_labControl.insertLab()) {
-                    _labControl.navigatePages("listLabsBoundary");
+                    executor.navigate("listLabsBoundary");
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o laboratório", "Erro",
                             JOptionPane.ERROR_MESSAGE);

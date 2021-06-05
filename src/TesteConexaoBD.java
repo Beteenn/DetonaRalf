@@ -13,12 +13,12 @@ public class TesteConexaoBD {
   public static void main(String[] args) {
 
     try {
-      ILabDao labDao = new LabDao();
-      IReservaDao reservaDao = new ReservaDao();
-      IUsuarioDao usuarioDao = new UsuarioDao();
-      LaboratorioControl labControl = new LaboratorioControl(labDao);
-      ReservaControl reservaControl = new ReservaControl(reservaDao);
-      UsuarioControl usuarioControl = new UsuarioControl(usuarioDao);
+//      ILabDao labDao = new LabDao();
+//      IReservaDao reservaDao = new ReservaDao();
+//      IUsuarioDao usuarioDao = new UsuarioDao();
+//      LaboratorioControl labControl = new LaboratorioControl(labDao);
+//      ReservaControl reservaControl = new ReservaControl(reservaDao);
+//      UsuarioControl usuarioControl = new UsuarioControl(usuarioDao);
 
 //      usuarioControl.getUsuario();
 //      usuarioControl.insertUsuario();

@@ -1,18 +1,23 @@
 package Boundary;
 
-import Control.ViewControl;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class HomeBoundary {
+public class HomeBoundary implements TelaStrategy{
 
-  public Pane getHomeBoundary() {
+  private ExecutorAcoes executor;
+
+  public HomeBoundary(ExecutorAcoes executor) {
+    this.executor = executor;
+  }
+
+  public Pane getBoundary() {
     GridPane panePrincipal = new GridPane();
 
-    Button buttonLab = Shared.appButtonLarge("Laboratórios");
-    Button buttonProf = Shared.appButtonLarge("Professores");
+    Button buttonLab = new Button("Laboratórios");
+    Button buttonProf = new Button("Professores");
 
     panePrincipal.setAlignment(Pos.CENTER);
     panePrincipal.setHgap(50);
@@ -23,7 +28,7 @@ public class HomeBoundary {
 
     buttonLab.setOnAction(e -> {
       System.out.println("Laboratorios");
-      ViewControl.setPageView("listLabsBoundary");
+      executor.navigate("listLabsBoundary");
     });
 
     buttonProf.setOnAction(e -> {

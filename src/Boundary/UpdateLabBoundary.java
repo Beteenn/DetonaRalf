@@ -12,14 +12,15 @@ import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.*;
 
-public class UpdateLabBoundary {
-	private LaboratorioControl _labControl;
+public class UpdateLabBoundary implements TelaStrategy{
+	private LaboratorioControl _labControl = new LaboratorioControl();
+	private ExecutorAcoes executor;
 
-	public UpdateLabBoundary(LaboratorioControl control) {
-		_labControl = control;
+	public UpdateLabBoundary(ExecutorAcoes executor) {
+		this.executor = executor;
 	}
 
-	public Pane getUpdateLabBoundary() {
+	public Pane getBoundary() {
 		GridPane panePrincipal = new GridPane();
 		panePrincipal.setVgap(15);
 		panePrincipal.setHgap(15);
@@ -30,15 +31,15 @@ public class UpdateLabBoundary {
 
 		HBox pageHeader = new HBox(tituloLabel);
 
-		Label labelNumero = Shared.appLabel("Número");
-		TextField inputNumero = Shared.appInput();
-		Label labelDescricao = Shared.appLabel("Descrição");
-		TextField inputDescricao = Shared.appInput();
-		Button buttonSalvar = Shared.appButtonNormal("Salvar");
+		Label labelNumero = new Label("Número");
+		TextField inputNumero = new TextField();
+		Label labelDescricao = new Label("Descrição");
+		TextField inputDescricao = new TextField();
+		Button buttonSalvar = new Button("Salvar");
 
 		buttonSalvar.setOnAction(event -> {
 			if (_labControl.updateLab()) {
-				_labControl.navigatePages("listLabsBoundary");
+				executor.navigate("listLabsBoundary");
 			} else {
 				JOptionPane.showMessageDialog(null, "Não foi possivel atualizar o laboratório!");
 			}

@@ -2,14 +2,22 @@ package Control;
 
 import Entity.Usuario;
 import Repository.IUsuarioDao;
+import Repository.UsuarioDao;
+
+import java.sql.SQLException;
 
 public class AuthControl {
-  private final IUsuarioDao usuarioDao;
-  private static Usuario currentUser;
+  private IUsuarioDao usuarioDao;
 
-  public AuthControl(IUsuarioDao _usuarioDao) {
-    usuarioDao = _usuarioDao;
+  {
+    try {
+      usuarioDao = new UsuarioDao();
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    }
   }
+
+  private static Usuario currentUser;
 
   public Integer login(String email, String senha) {
     try {
