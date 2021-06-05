@@ -45,7 +45,7 @@ public class EditProfessorBoundary implements TelaStrategy {
       if (usuarioControl.updateUsuario(inputNome.getText(), inputEmail.getText())) {
         JOptionPane.showMessageDialog(null, "Professor atualizado com sucesso!");
         //TODO: add list professor view on navigate
-        executor.navigate("");
+        executor.navigate("listProfessoresBoundary");
       } else {
         JOptionPane.showMessageDialog(null, "Erro ao atualizar professor!", "Erro",
                 JOptionPane.ERROR_MESSAGE);

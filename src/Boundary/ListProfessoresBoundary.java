@@ -83,7 +83,7 @@ public class ListProfessoresBoundary implements TelaStrategy {
             btnEditar.setOnAction((ActionEvent event) -> {
               Usuario usuario = getTableView().getItems().get(getIndex());
               _usuarioControl.setProfessor(usuario);
-              executor.navigate("updateLabBoundary");
+              executor.navigate("editProfessorBoundary");
             });
 
             btnDeletar.setOnAction((ActionEvent event) -> {

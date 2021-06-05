@@ -32,13 +32,11 @@ public class UsuarioDao implements IUsuarioDao {
 
   @Override
   public void updateUsuario(Usuario usuario) throws SQLException {
-    String sql = "UPDATE usuario SET nome = ?, email = ?, senha = ?, perfil_id = ? WHERE id = ?";
+    String sql = "UPDATE usuario SET nome = ?, email = ? WHERE id = ?";
     PreparedStatement ps = connection.prepareStatement(sql);
     ps.setString(1, usuario.getNome());
     ps.setString(2, usuario.getEmail());
-    ps.setString(3, usuario.getSenha());
-    ps.setInt(4, usuario.getPerfilId());
-    ps.setInt(5, usuario.getId());
+    ps.setInt(3, usuario.getId());
     ps.execute();
     ps.close();
   }

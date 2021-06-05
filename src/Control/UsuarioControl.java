@@ -1,5 +1,6 @@
 package Control;
 
+import Entity.Laboratorio;
 import Entity.Usuario;
 import Repository.IUsuarioDao;
 import Repository.UsuarioDao;
@@ -66,12 +67,11 @@ public class UsuarioControl {
   }
 
   public Boolean updateUsuario(String nome, String email) {
+    if (nome.isEmpty() | email.isEmpty()) return false;
     try {
-      Usuario usuario = new Usuario();
-      usuario.setId(2);
+      Usuario usuario = getUsuarioProperty();
       usuario.setNome(nome);
       usuario.setEmail(email);
-      usuario.setPerfilId(1);
 
       _usuarioDao.updateUsuario(usuario);
       return true;
@@ -123,6 +123,17 @@ public class UsuarioControl {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  public Usuario getUsuarioProperty() {
+    Usuario usuario = new Usuario();
+    usuario.setId(id.get());
+    usuario.setNome(nome.getName());
+    usuario.setEmail(email.get());
+    usuario.setSenha(senha.get());
+    usuario.setPerfilId(perfilId.get());
+
+    return usuario;
   }
 
   // region Getters
