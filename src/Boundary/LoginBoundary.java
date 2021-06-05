@@ -7,8 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class LoginBoundary implements TelaStrategy{
 
@@ -33,12 +32,12 @@ public class LoginBoundary implements TelaStrategy{
     TextField inputSenha = new TextField();
     Button buttonEntrar = new Button("Entrar");
 
-    panePrincipal.add(tituloPagina,1, 0,2,1);
-    panePrincipal.add(labelEmail,0, 1);
-    panePrincipal.add(inputEmail,1, 1);
-    panePrincipal.add(labelSenha,0, 2);
-    panePrincipal.add(inputSenha,1, 2);
-    panePrincipal.add(buttonEntrar,1, 3);
+    panePrincipal.add(tituloPagina, 1, 0, 2, 1);
+    panePrincipal.add(labelEmail, 0, 1);
+    panePrincipal.add(inputEmail, 1, 1);
+    panePrincipal.add(labelSenha, 0, 2);
+    panePrincipal.add(inputSenha, 1, 2);
+    panePrincipal.add(buttonEntrar, 1, 3);
 
     buttonEntrar.setOnAction(e -> {
 //      Integer currentUserPerfilId = authControl.login(inputEmail.getText(), inputSenha.getText());
