@@ -5,19 +5,19 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class HomeBoundary implements TelaStrategy {
+public class HomeProfessorBoundary implements TelaStrategy {
 
   private ExecutorAcoes executor;
 
-  public HomeBoundary(ExecutorAcoes executor) {
+  public HomeProfessorBoundary(ExecutorAcoes executor) {
     this.executor = executor;
   }
 
   public Pane getBoundary() {
     GridPane panePrincipal = new GridPane();
 
-    Button buttonLab = new Button("Laboratórios");
-    Button buttonProf = new Button("Professores");
+    Button buttonLab = new Button("Reservar Laboratório");
+    Button buttonProf = new Button("Minhas Reservas");
     buttonLab.getStyleClass().add("button-large");
     buttonProf.getStyleClass().add("button-large");
 

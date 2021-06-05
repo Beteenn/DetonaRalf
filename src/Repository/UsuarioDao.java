@@ -1,12 +1,13 @@
 package Repository;
 
 import Entity.Usuario;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public class UsuarioDao implements IUsuarioDao {
 
@@ -93,6 +94,25 @@ public class UsuarioDao implements IUsuarioDao {
     rs.close();
 
     return null;
+  }
+
+  @Override
+  public ObservableList<Usuario> listProfessores() throws SQLException {
+    ObservableList<Usuario> professores = FXCollections.observableArrayList();
+    String sql = "SELECT * FROM usuario WHERE perfil_id = 2";
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+      Usuario professor = new Usuario();
+      professor.setId(rs.getInt("id"));
+      professor.setEmail(rs.getString("email"));
+      professor.setNome(rs.getString("nome"));
+      professores.add(professor);
+    }
+    rs.close();
+    ps.close();
+
+    return professores;
   }
 
 }
