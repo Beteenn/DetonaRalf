@@ -12,7 +12,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.*;
 
-public class UpdateLabBoundary implements TelaStrategy{
+public class UpdateLabBoundary implements TelaStrategy {
 	private LaboratorioControl _labControl = new LaboratorioControl();
 	private ExecutorAcoes executor;
 
@@ -27,7 +27,7 @@ public class UpdateLabBoundary implements TelaStrategy{
 		panePrincipal.setAlignment(Pos.CENTER);
 
 		Label tituloLabel = new Label("Edição de Laboratórios");
-		tituloLabel.setStyle("-fx-font-size: 20px");
+		tituloLabel.getStyleClass().add("titulo");
 
 		HBox pageHeader = new HBox(tituloLabel);
 
@@ -51,7 +51,6 @@ public class UpdateLabBoundary implements TelaStrategy{
 		panePrincipal.add(labelDescricao, 0, 2);
 		panePrincipal.add(inputDescricao, 1, 2);
 		panePrincipal.add(buttonSalvar, 1, 3);
-		panePrincipal.setStyle("-fx-background-color: #FFFFFF");
 
 		StringConverter intToStringConverter = new IntegerStringConverter();
 		Bindings.bindBidirectional(inputNumero.textProperty(), _labControl.numeroProperty(), intToStringConverter);

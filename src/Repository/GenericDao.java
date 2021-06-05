@@ -10,6 +10,6 @@ public class GenericDao implements IGenericDao {
   public Connection getConnection() throws ClassNotFoundException, SQLException {
     Class.forName("com.mysql.cj.jdbc.Driver");
 
-    return DriverManager.getConnection("jdbc:mysql://localhost:3306/DetonaRalf","root","admin");
+    return DriverManager.getConnection("jdbc:mysql://localhost:3306/DetonaRalf", "root", "123456");
   }
 }

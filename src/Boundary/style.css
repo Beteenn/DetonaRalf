@@ -1,0 +1,68 @@
+.root{
+    -fx-background-color: #ffffff
+
+}
+
+.table-view .column-header .label{
+    -fx-font-size: 13px;
+}
+
+.label {
+    -fx-font-size: 15px;
+}
+
+.titulo {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.titulo-logo {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+}
+
+
+.tableColumn {
+    -fx-font-size: 20px;
+}
+
+.button {
+    -fx-background-color: #FF234B;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 10px;
+}
+
+.button-large {
+    -fx-background-color: #FF234B;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 90px;
+}
+
+.textField {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-border-color: #757575;
+    -fx-border-insets: 1px;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 10px;
+}
+
+.menuButton {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-border-color: #757575;
+    -fx-border-insets: 1px;
+}
+
+.menuItem {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+}
+

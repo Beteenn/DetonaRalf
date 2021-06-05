@@ -11,6 +11,12 @@ import javafx.scene.layout.Priority;
 
 public class Header {
 
+    private ExecutorAcoes executor;
+
+    public Header(ExecutorAcoes executor) {
+        this.executor = executor;
+    }
+
     public Pane getTopBar(boolean isHome) {
         GridPane header = new GridPane();
         header.setStyle("-fx-background-color: #FFFFFF");
@@ -36,10 +42,11 @@ public class Header {
         GridPane.setColumnIndex(logo, 0);
         GridPane.setColumnIndex(btnSair, 2);
 
-        btnVoltar.setOnAction((e)->{
+        btnVoltar.setOnAction((e) -> {
+            executor.navigate("voltar");
         });
 
-        btnSair.setOnAction((e)->{
+        btnSair.setOnAction((e) -> {
             Platform.exit();
             System.exit(0);
         });
