@@ -25,6 +25,7 @@ public class Main extends Application implements ExecutorAcoes {
     private TelaStrategy homeBoundary = new HomeBoundary(this);
     private TelaStrategy updateLabBoundary = new UpdateLabBoundary(this);
     private TelaStrategy loginBoundary = new LoginBoundary(this);
+    private TelaStrategy createProfessorBoundary = new CreateProfessorBoundary();
 
     public static BorderPane bp = new BorderPane();
 
@@ -36,6 +37,7 @@ public class Main extends Application implements ExecutorAcoes {
         mapaTelas.put("homeBoundary", homeBoundary);
         mapaTelas.put("updateLabBoundary", updateLabBoundary);
         mapaTelas.put("loginBoundary", loginBoundary);
+        mapaTelas.put("createProfessorBoundary", createProfessorBoundary);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class Main extends Application implements ExecutorAcoes {
 
         gerarMapaTelas();
 
-        bp.setCenter(loginBoundary.getBoundary());
+        bp.setCenter(createProfessorBoundary.getBoundary());
 
         primaryStage.setScene(scn);
         primaryStage.setTitle("Detona Ralf");
