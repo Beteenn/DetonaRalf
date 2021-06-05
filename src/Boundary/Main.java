@@ -1,9 +1,11 @@
 package Boundary;
 
+import Control.LaboratorioControl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +17,11 @@ public class Main extends Application implements ExecutorAcoes {
     private TelaStrategy listLabsBoundary = new ListLabsBoundary(this);
     private TelaStrategy homeBoundary = new HomeBoundary(this);
     private TelaStrategy homeProfessorBoundary = new HomeProfessorBoundary(this);
+    private TelaStrategy listProfessoresBoundary = new HomeProfessorBoundary(this);
     private TelaStrategy updateLabBoundary = new UpdateLabBoundary(this);
     private TelaStrategy loginBoundary = new LoginBoundary(this);
-    // private TelaStrategy editProfessor = new EditProfessor(this);
     private TelaStrategy createProfessorBoundary = new CreateProfessorBoundary(this);
-    private TelaStrategy listProfessoresBoundary = new ListProfessoresBoundary(this);
+    private TelaStrategy editProfessorBoundary = new EditProfessorBoundary(this);
 
     private Header header = new Header(this);
 
@@ -35,9 +37,9 @@ public class Main extends Application implements ExecutorAcoes {
         mapaTelas.put("updateLabBoundary", updateLabBoundary);
         mapaTelas.put("loginBoundary", loginBoundary);
         mapaTelas.put("createProfessorBoundary", createProfessorBoundary);
-        // mapaTelas.put("editProfessor", editProfessor);
         mapaTelas.put("listProfessoresBoundary", listProfessoresBoundary);
         mapaTelas.put("homeProfessorBoundary", homeProfessorBoundary);
+        mapaTelas.put("editProfessor", editProfessorBoundary);
     }
 
     @Override
