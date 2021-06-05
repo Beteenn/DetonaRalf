@@ -45,15 +45,20 @@ public class UsuarioControl {
     return false;
   }
 
-  public void updateUsuario() throws SQLException {
-    Usuario usuario = new Usuario();
-    usuario.setId(2);
-    usuario.setNome("Cleyton Editado");
-    usuario.setEmail("email@editado.com");
-    usuario.setPerfilId(1);
-    usuario.setSenha("1234");
+  public Boolean updateUsuario(String nome, String email) {
+    try {
+      Usuario usuario = new Usuario();
+      usuario.setId(2);
+      usuario.setNome(nome);
+      usuario.setEmail(email);
+      usuario.setPerfilId(1);
 
-    _usuarioDao.updateUsuario(usuario);
+      _usuarioDao.updateUsuario(usuario);
+      return true;
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+    return false;
   }
 
   public void deleteUsuario() throws SQLException {

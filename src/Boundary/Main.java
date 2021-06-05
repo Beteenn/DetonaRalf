@@ -28,6 +28,7 @@ public class Main extends Application implements ExecutorAcoes {
     private TelaStrategy updateLabBoundary = new UpdateLabBoundary(this);
     private TelaStrategy loginBoundary = new LoginBoundary(this);
     private TelaStrategy createProfessorBoundary = new CreateProfessorBoundary();
+    private TelaStrategy editProfessor = new EditProfessor(this);
 
     private Header header = new Header(this);
 
@@ -43,6 +44,7 @@ public class Main extends Application implements ExecutorAcoes {
         mapaTelas.put("updateLabBoundary", updateLabBoundary);
         mapaTelas.put("loginBoundary", loginBoundary);
         mapaTelas.put("createProfessorBoundary", createProfessorBoundary);
+        mapaTelas.put("editProfessor", editProfessor);
     }
 
     @Override
