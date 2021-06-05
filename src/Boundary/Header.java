@@ -1,5 +1,6 @@
 package Boundary;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +40,8 @@ public class Header {
         });
 
         btnSair.setOnAction((e)->{
-
+            Platform.exit();
+            System.exit(0);
         });
 
         return header;
