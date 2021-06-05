@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-public class ListLabsBoundary implements TelaStrategy{
+public class ListLabsBoundary implements TelaStrategy {
   private LaboratorioControl _labControl = new LaboratorioControl();
   private ExecutorAcoes executor;
 
@@ -30,7 +30,7 @@ public class ListLabsBoundary implements TelaStrategy{
     panePrincipal.setAlignment(Pos.CENTER);
 
     Label titulo = new Label("Laboratórios");
-    titulo.setStyle("-fx-font-size: 20px");
+    titulo.getStyleClass().add("titulo");
 
     Button btnCadastrar = new Button("Cadastrar");
     btnCadastrar.setOnAction(e -> {
@@ -50,8 +50,6 @@ public class ListLabsBoundary implements TelaStrategy{
     } catch (SQLException e1) {
       e1.printStackTrace();
     }
-
-    panePrincipal.setStyle("-fx-background-color: #FFFFFF");
 
     return panePrincipal;
   }

@@ -13,7 +13,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main extends Application implements ExecutorAcoes {
@@ -27,11 +29,12 @@ public class Main extends Application implements ExecutorAcoes {
     private TelaStrategy loginBoundary = new LoginBoundary(this);
     private TelaStrategy createProfessorBoundary = new CreateProfessorBoundary();
 
-    private Header header = new Header();
+    private Header header = new Header(this);
 
     public static BorderPane bp = new BorderPane();
 
     private Map<String, TelaStrategy> mapaTelas = new HashMap<>();
+    private List<String> historicoTelas = new ArrayList<String>();
 
     private void gerarMapaTelas() {
         mapaTelas.put("createLabBoundary", createLabBoundary);
@@ -50,6 +53,8 @@ public class Main extends Application implements ExecutorAcoes {
 
         bp.setCenter(createProfessorBoundary.getBoundary());
 
+        scn.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
         primaryStage.setScene(scn);
         primaryStage.setTitle("Detona Ralf");
         primaryStage.show();
@@ -61,11 +66,19 @@ public class Main extends Application implements ExecutorAcoes {
 
     @Override
     public void navigate(String acao) {
+        if (!acao.equals("voltar")) {
+            historicoTelas.add(acao);
+        } else if (historicoTelas.size() >= 2) {
+            acao = historicoTelas.get(historicoTelas.size() - 2);
+            historicoTelas.remove(historicoTelas.size() - 1);
+        }
         TelaStrategy tela = mapaTelas.get(acao);
         boolean isHome = false;
-        if (acao.equals("homeBoundary")) isHome = true;
+        if (acao.equals("homeBoundary"))
+            isHome = true;
         bp.setTop(header.getTopBar(isHome));
         bp.setCenter(tela.getBoundary());
+
     }
 
 }

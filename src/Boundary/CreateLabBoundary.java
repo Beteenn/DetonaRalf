@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-public class CreateLabBoundary implements TelaStrategy{
+public class CreateLabBoundary implements TelaStrategy {
     private LaboratorioControl _labControl = new LaboratorioControl();
     private ExecutorAcoes executor;
 
@@ -31,7 +31,7 @@ public class CreateLabBoundary implements TelaStrategy{
         panePrincipal.setAlignment(Pos.CENTER);
 
         Label tituloLabel = new Label("Cadastro de Laboratórios");
-        tituloLabel.setStyle("-fx-font-size: 20px");
+        tituloLabel.getStyleClass().add("titulo");
 
         HBox pageHeader = new HBox(tituloLabel);
 
@@ -47,7 +47,6 @@ public class CreateLabBoundary implements TelaStrategy{
         panePrincipal.add(labelDescricao, 0, 2);
         panePrincipal.add(inputDescricao, 1, 2);
         panePrincipal.add(buttonCadastrar, 1, 3);
-        panePrincipal.setStyle("-fx-background-color: #FFFFFF");
 
         _labControl.clearLab();
 
