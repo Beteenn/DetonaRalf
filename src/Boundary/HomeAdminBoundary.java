@@ -5,11 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class HomeBoundary implements TelaStrategy {
+public class HomeAdminBoundary implements TelaStrategy {
 
   private ExecutorAcoes executor;
 
-  public HomeBoundary(ExecutorAcoes executor) {
+  public HomeAdminBoundary(ExecutorAcoes executor) {
     this.executor = executor;
   }
 

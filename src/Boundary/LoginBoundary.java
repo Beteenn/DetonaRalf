@@ -47,7 +47,8 @@ public class LoginBoundary implements TelaStrategy {
        if (currentUserPerfilId == null)
        JOptionPane.showMessageDialog(null, "Error", "Login inválido. Tente novamente!",
        JOptionPane.ERROR_MESSAGE);
-       else executor.navigate("createReservaBoundary");
+       else if (currentUserPerfilId == 1) executor.navigate("homeAdminBoundary");
+       else if (currentUserPerfilId == 2) executor.navigate("homeProfessorBoundary");
     });
 
     return panePrincipal;

@@ -28,11 +28,11 @@ public class HomeProfessorBoundary implements TelaStrategy {
     panePrincipal.add(buttonProf, 2, 1);
 
     buttonLab.setOnAction(e -> {
-      executor.navigate("listLabsBoundary");
+      executor.navigate("createReservaBoundary");
     });
 
     buttonProf.setOnAction(e -> {
-      executor.navigate("listProfessoresBoundary");
+      executor.navigate("listLabsBoundary");
     });
 
     return panePrincipal;

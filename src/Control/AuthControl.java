@@ -22,6 +22,7 @@ public class AuthControl {
   public Integer login(String email, String senha) {
     try {
       currentUser = usuarioDao.getUsuarioByLogin(email, senha);
+      System.out.println(currentUser.getPerfilId());
       return currentUser.getPerfilId();
     } catch (Exception e) {
       System.out.print(e.getMessage());
