@@ -31,12 +31,11 @@ public class AuthControl {
     return null;
   }
 
-  //TODO
-  public void logout() {}
+  public void logout() {
+  }
 
   // getter
-  public Usuario getCurrentUser() { return currentUser; }
+  public Usuario getCurrentUser() {
+    return currentUser;
+  }
 }
-
-
-

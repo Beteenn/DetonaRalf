@@ -2,7 +2,6 @@ package Boundary;
 
 import Control.ReservaControl;
 import Entity.Reserva;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -11,10 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.util.Callback;
-
-import javax.swing.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 public class ListReservasBoundary implements TelaStrategy {
@@ -103,12 +98,6 @@ public class ListReservasBoundary implements TelaStrategy {
 
             btnDeletar.setOnAction((ActionEvent event) -> {
               Reserva reserva = getTableView().getItems().get(getIndex());
-              // int confirm = JOptionPane.showConfirmDialog(null, "Deletar a reserva " + +
-              // "?");
-              // if (confirm == 0) {
-              // _reservaControl.deleteReserva(reserva);
-              // appTable(_reservaControl.listReservas());
-              // }
               _reservaControl.deleteReserva(reserva);
               appTable(_reservaControl.listReservas());
             });

@@ -106,10 +106,6 @@ public class LaboratorioControl {
   }
 
   // region Getters
-  // public ObservableList<Laboratorio> getLabs() {
-  // return _labDao.getLabs();
-  // }
-
   public int getId() {
     return id.get();
   }

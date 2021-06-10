@@ -70,7 +70,6 @@ public class Main extends Application implements ExecutorAcoes {
     public void navigate(String acao) {
         if (!acao.equals("voltar")) {
             historicoTelas.add(acao);
-            // } else if (historicoTelas.size() >= 2) {
         } else {
             acao = historicoTelas.get(historicoTelas.size() - 2);
             historicoTelas.remove(historicoTelas.size() - 1);

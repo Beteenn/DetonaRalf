@@ -54,14 +54,12 @@ public class ReservaControl {
   public static ObservableList<String> datasInicio = FXCollections.observableArrayList();
   public static ObservableList<String> datasFinal = FXCollections.observableArrayList();
 
-  // ToDo fazer Select
   public void horasIniciaisDisponiveis() {
     for (Integer i : horasInicio) {
       datasInicio.add(i.toString() + ":00");
     }
   }
 
-  // ToDo fazer Select
   public void horasFinaisDisponiveis() {
     for (Integer i : horasFim) {
       datasFinal.add(i.toString() + ":00");

@@ -8,7 +8,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
 import javax.swing.*;
 
 public class LoginBoundary implements TelaStrategy {
@@ -33,7 +32,6 @@ public class LoginBoundary implements TelaStrategy {
     TextField inputEmail = new TextField();
     Label labelSenha = new Label("Senha");
     PasswordField inputSenha = new PasswordField();
-    // TextField inputSenha = new TextField();
     Button buttonEntrar = new Button("Entrar");
 
     panePrincipal.add(tituloPagina, 1, 0, 2, 1);

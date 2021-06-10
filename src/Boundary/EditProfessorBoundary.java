@@ -1,7 +1,6 @@
 package Boundary;
 
 import Control.UsuarioControl;
-import Entity.Usuario;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,15 +43,12 @@ public class EditProfessorBoundary implements TelaStrategy {
     buttonEntrar.setOnAction(e -> {
       if (usuarioControl.updateUsuario(inputNome.getText(), inputEmail.getText())) {
         JOptionPane.showMessageDialog(null, "Professor atualizado com sucesso!");
-        //TODO: add list professor view on navigate
         executor.navigate("listProfessoresBoundary");
       } else {
-        JOptionPane.showMessageDialog(null, "Erro ao atualizar professor!", "Erro",
-                JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Erro ao atualizar professor!", "Erro", JOptionPane.ERROR_MESSAGE);
       }
     });
 
     return panePrincipal;
   }
 }
-

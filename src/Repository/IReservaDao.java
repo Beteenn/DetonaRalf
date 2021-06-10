@@ -4,7 +4,6 @@ import Entity.Reserva;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public interface IReservaDao {
 

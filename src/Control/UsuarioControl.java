@@ -1,14 +1,11 @@
 package Control;
 
-import Entity.Laboratorio;
 import Entity.Usuario;
 import Repository.IUsuarioDao;
 import Repository.UsuarioDao;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
-
 import javax.swing.JOptionPane;
-
 import java.sql.SQLException;
 
 public class UsuarioControl {
@@ -67,7 +64,8 @@ public class UsuarioControl {
   }
 
   public Boolean updateUsuario(String nome, String email) {
-    if (nome.isEmpty() | email.isEmpty()) return false;
+    if (nome.isEmpty() | email.isEmpty())
+      return false;
     try {
       Usuario usuario = getUsuarioProperty();
       usuario.setNome(nome);
@@ -80,21 +78,6 @@ public class UsuarioControl {
     }
     return false;
   }
-
-  // public void updateUsuario() {
-  // Usuario usuario = new Usuario();
-  // usuario.setId(2);
-  // usuario.setNome("Cleyton Editado");
-  // usuario.setEmail("email@editado.com");
-  // usuario.setPerfilId(1);
-  // usuario.setSenha("1234");
-
-  // try {
-  // _usuarioDao.updateUsuario(usuario);
-  // } catch (SQLException e) {
-  // e.printStackTrace();
-  // }
-  // }
 
   public ObservableList<Usuario> listProfessores() {
     try {
