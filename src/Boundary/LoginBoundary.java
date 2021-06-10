@@ -4,6 +4,7 @@ import Control.AuthControl;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -31,7 +32,8 @@ public class LoginBoundary implements TelaStrategy {
     Label labelEmail = new Label("E-mail");
     TextField inputEmail = new TextField();
     Label labelSenha = new Label("Senha");
-    TextField inputSenha = new TextField();
+    PasswordField inputSenha = new PasswordField();
+    // TextField inputSenha = new TextField();
     Button buttonEntrar = new Button("Entrar");
 
     panePrincipal.add(tituloPagina, 1, 0, 2, 1);
@@ -42,13 +44,13 @@ public class LoginBoundary implements TelaStrategy {
     panePrincipal.add(buttonEntrar, 1, 3);
 
     buttonEntrar.setOnAction(e -> {
-       Integer currentUserPerfilId = authControl.login(inputEmail.getText(),
-       inputSenha.getText());
-       if (currentUserPerfilId == null)
-       JOptionPane.showMessageDialog(null, "Error", "Login inválido. Tente novamente!",
-       JOptionPane.ERROR_MESSAGE);
-       else if (currentUserPerfilId == 1) executor.navigate("homeAdminBoundary");
-       else if (currentUserPerfilId == 2) executor.navigate("homeProfessorBoundary");
+      Integer currentUserPerfilId = authControl.login(inputEmail.getText(), inputSenha.getText());
+      if (currentUserPerfilId == null)
+        JOptionPane.showMessageDialog(null, "Error", "Login inválido. Tente novamente!", JOptionPane.ERROR_MESSAGE);
+      else if (currentUserPerfilId == 1)
+        executor.navigate("homeAdminBoundary");
+      else if (currentUserPerfilId == 2)
+        executor.navigate("homeProfessorBoundary");
     });
 
     return panePrincipal;

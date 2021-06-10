@@ -6,10 +6,10 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-public class ReservaDao implements IReservaDao{
+public class ReservaDao implements IReservaDao {
   private Connection connection;
 
-  public ReservaDao() throws ClassNotFoundException, SQLException{
+  public ReservaDao() throws ClassNotFoundException, SQLException {
     IGenericDao dao = new GenericDao();
     connection = dao.getConnection();
   }
@@ -20,7 +20,7 @@ public class ReservaDao implements IReservaDao{
     PreparedStatement ps = connection.prepareStatement(sql);
     ps.setInt(1, reserva.getId());
     ResultSet rs = ps.executeQuery();
-    if (rs.next()){
+    if (rs.next()) {
       reserva.setLabId(rs.getInt("laboratorio_id"));
       reserva.setUsuarioId(rs.getInt("usuario_id"));
       reserva.setEntregaDate(rs.getTimestamp("entrega").toLocalDateTime());
@@ -39,7 +39,7 @@ public class ReservaDao implements IReservaDao{
     String sql = "SELECT * FROM Reserva LEFT JOIN laboratorio ON reserva.laboratorio_id = laboratorio.id;";
     PreparedStatement ps = connection.prepareStatement(sql);
     ResultSet rs = ps.executeQuery();
-    while(rs.next()){
+    while (rs.next()) {
       Reserva reserva = new Reserva();
       reserva.setId(rs.getInt("id"));
       reserva.setUsuarioId(rs.getInt("usuario_id"));

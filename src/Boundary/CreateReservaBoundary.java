@@ -42,7 +42,6 @@ public class CreateReservaBoundary implements TelaStrategy {
         comboDataInicio.setDisable(true);
         comboDataFinal.setDisable(true);
 
-
         panePrincipal.add(pageHeader, 1, 0, 2, 1);
         panePrincipal.add(labelLab, 0, 1);
         panePrincipal.add(comboLabs, 1, 1);
@@ -52,21 +51,17 @@ public class CreateReservaBoundary implements TelaStrategy {
         panePrincipal.add(comboDataFinal, 1, 3);
         panePrincipal.add(buttonReservar, 1, 4);
 
-        // reservaControl.clearLab();
-//        StringConverter dateToStringConverter = new LocalDateStringConverter();
-//        StringConverter intToStringConverter = new IntegerStringConverter();
         comboLabs.valueProperty().bindBidirectional(reservaControl.labTelaProperty());
         comboDataInicio.valueProperty().bindBidirectional(reservaControl.horaInicialProperty());
         comboDataFinal.valueProperty().bindBidirectional(reservaControl.horaFinalProperty());
 
         buttonReservar.setOnAction(e -> {
-             if (reservaControl.insertReserva()) {
+            if (reservaControl.insertReserva()) {
                 executor.navigate("listReservasBoundary");
-                 System.out.println("Reservado");
-             } else {
-             JOptionPane.showMessageDialog(null, "Não foi possivel reservar!", "Erro",
-             JOptionPane.ERROR_MESSAGE);
-             }
+                System.out.println("Reservado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possivel reservar!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         comboLabs.setOnAction(e -> {

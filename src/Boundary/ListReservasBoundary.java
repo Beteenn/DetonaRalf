@@ -58,16 +58,15 @@ public class ListReservasBoundary implements TelaStrategy {
     tabela.setItems(reservas);
 
     TableColumn<Reserva, String> colunaNumero = new TableColumn<>("Número");
-    colunaNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+    colunaNumero.setCellValueFactory(new PropertyValueFactory<>("numeroLab"));
 
     TableColumn<Reserva, String> colunaDesc = new TableColumn<>("Descrição");
-    colunaDesc.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+    colunaDesc.setCellValueFactory(new PropertyValueFactory<>("descricaoLab"));
     colunaDesc.setPrefWidth(300);
 
     TableColumn<Reserva, LocalDateTime> colunaReserva = new TableColumn<>("Reserva");
     colunaReserva.setCellValueFactory(new PropertyValueFactory<>("reservaDate"));
     colunaReserva.setPrefWidth(150);
-
 
     TableColumn<Reserva, LocalDateTime> colunaEntrega = new TableColumn<>("Entrega");
     colunaEntrega.setCellValueFactory(new PropertyValueFactory<>("entregaDate"));
@@ -96,17 +95,20 @@ public class ListReservasBoundary implements TelaStrategy {
           {
             btnEditar.setOnAction((ActionEvent event) -> {
               Reserva reserva = getTableView().getItems().get(getIndex());
+              System.out.println("Reserva aquii -> " + reserva.getDescricaoLab());
               _reservaControl.setReserva(reserva);
-              executor.navigate("updateLabBoundary");
+              System.out.println("Property aqui -> " + _reservaControl.getLabTela());
+              executor.navigate("editReservaBoundary");
             });
 
             btnDeletar.setOnAction((ActionEvent event) -> {
               Reserva reserva = getTableView().getItems().get(getIndex());
-//              int confirm = JOptionPane.showConfirmDialog(null, "Deletar a reserva " +  + "?");
-//              if (confirm == 0) {
-//                _reservaControl.deleteReserva(reserva);
-//                appTable(_reservaControl.listReservas());
-//              }
+              // int confirm = JOptionPane.showConfirmDialog(null, "Deletar a reserva " + +
+              // "?");
+              // if (confirm == 0) {
+              // _reservaControl.deleteReserva(reserva);
+              // appTable(_reservaControl.listReservas());
+              // }
               _reservaControl.deleteReserva(reserva);
               appTable(_reservaControl.listReservas());
             });
