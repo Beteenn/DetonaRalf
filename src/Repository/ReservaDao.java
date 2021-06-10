@@ -1,10 +1,10 @@
 package Repository;
 
 import Entity.Reserva;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ReservaDao implements IReservaDao{
   private Connection connection;
@@ -34,15 +34,22 @@ public class ReservaDao implements IReservaDao{
   }
 
   @Override
-  public List<Reserva> listReservas() throws SQLException {
-    List<Reserva> reservas = new ArrayList<>();
-    String sql = "SELECT * FROM Reserva";
+  public ObservableList<Reserva> listReservas() throws SQLException {
+    ObservableList<Reserva> reservas = FXCollections.observableArrayList();
+    String sql = "SELECT * FROM Reserva LEFT JOIN laboratorio ON reserva.laboratorio_id = laboratorio.id;";
     PreparedStatement ps = connection.prepareStatement(sql);
     ResultSet rs = ps.executeQuery();
     while(rs.next()){
       Reserva reserva = new Reserva();
-      System.out.println(rs.getInt("id"));
+      reserva.setId(rs.getInt("id"));
+      reserva.setUsuarioId(rs.getInt("usuario_id"));
+      reserva.setLabId(rs.getInt("laboratorio_id"));
+      reserva.setReservaDate(rs.getTimestamp("reserva").toLocalDateTime());
+      reserva.setEntregaDate(rs.getTimestamp("entrega").toLocalDateTime());
+      reserva.setNumeroLab(rs.getInt("numero"));
+      reserva.setDescricaoLab(rs.getString("descricao"));
       reservas.add(reserva);
+      System.out.println(rs.getString("descricao"));
     }
     rs.close();
     ps.close();

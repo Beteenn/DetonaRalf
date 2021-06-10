@@ -1,7 +1,8 @@
 package Boundary;
 
-import Control.LaboratorioControl;
-import Entity.Laboratorio;
+import Control.ReservaControl;
+import Entity.Reserva;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -12,55 +13,67 @@ import javafx.scene.layout.*;
 import javafx.util.Callback;
 
 import javax.swing.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 public class ListReservasBoundary implements TelaStrategy {
-  private LaboratorioControl _labControl = new LaboratorioControl();
+  private ReservaControl _reservaControl = new ReservaControl();
   private ExecutorAcoes executor;
 
   public ListReservasBoundary(ExecutorAcoes executor) {
     this.executor = executor;
   }
 
-  private TableView<Laboratorio> tabela = new TableView<>();
+  private TableView<Reserva> tabela = new TableView<>();
 
   public Pane getBoundary() {
     GridPane panePrincipal = new GridPane();
     panePrincipal.setAlignment(Pos.CENTER);
 
-    Label titulo = new Label("Laboratórios");
+    Label titulo = new Label("Minhas Reservas");
     titulo.getStyleClass().add("titulo");
 
-    Button btnCadastrar = new Button("Cadastrar");
-    btnCadastrar.setOnAction(e -> {
-      executor.navigate("createLabBoundary");
+    Button btnReservar = new Button("Reservar");
+    btnReservar.setOnAction(e -> {
+      executor.navigate("createReservaBoundary");
     });
 
     Region region1 = new Region();
     HBox.setHgrow(region1, Priority.ALWAYS);
 
-    HBox hbox = new HBox(titulo, region1, btnCadastrar);
+    HBox hbox = new HBox(titulo, region1, btnReservar);
     hbox.setPadding(new Insets(0, 0, 10, 0));
 
     panePrincipal.add(hbox, 1, 0);
 
-    panePrincipal.add(appTable(_labControl.listLabs()), 1, 1);
+    panePrincipal.add(appTable(_reservaControl.listReservas()), 1, 1);
 
     return panePrincipal;
   }
 
-  private TableView appTable(ObservableList<Laboratorio> labs) {
+  private TableView appTable(ObservableList<Reserva> reservas) {
     tabela.getColumns().clear();
 
-    tabela.setItems(labs);
+    tabela.setItems(reservas);
 
-    TableColumn<Laboratorio, String> colunaNumero = new TableColumn<>("Número");
+    TableColumn<Reserva, String> colunaNumero = new TableColumn<>("Número");
     colunaNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
 
-    TableColumn<Laboratorio, String> colunaDesc = new TableColumn<>("Descrição");
+    TableColumn<Reserva, String> colunaDesc = new TableColumn<>("Descrição");
     colunaDesc.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-    colunaDesc.setMinWidth(450);
+    colunaDesc.setPrefWidth(300);
 
-    tabela.getColumns().addAll(colunaNumero, colunaDesc);
+    TableColumn<Reserva, LocalDateTime> colunaReserva = new TableColumn<>("Reserva");
+    colunaReserva.setCellValueFactory(new PropertyValueFactory<>("reservaDate"));
+    colunaReserva.setPrefWidth(150);
+
+
+    TableColumn<Reserva, LocalDateTime> colunaEntrega = new TableColumn<>("Entrega");
+    colunaEntrega.setCellValueFactory(new PropertyValueFactory<>("entregaDate"));
+    colunaEntrega.setPrefWidth(150);
+
+    tabela.getColumns().addAll(colunaNumero, colunaDesc, colunaReserva, colunaEntrega);
 
     addButtonToTable();
 
@@ -69,31 +82,33 @@ public class ListReservasBoundary implements TelaStrategy {
   }
 
   private void addButtonToTable() {
-    TableColumn<Laboratorio, Void> colBtn = new TableColumn("Ações");
-    colBtn.setMinWidth(250);
+    TableColumn<Reserva, Void> colBtn = new TableColumn("Ações");
+    colBtn.setPrefWidth(250);
 
-    Callback<TableColumn<Laboratorio, Void>, TableCell<Laboratorio, Void>> cellFactory = new Callback<TableColumn<Laboratorio, Void>, TableCell<Laboratorio, Void>>() {
+    Callback<TableColumn<Reserva, Void>, TableCell<Reserva, Void>> cellFactory = new Callback<TableColumn<Reserva, Void>, TableCell<Reserva, Void>>() {
       @Override
-      public TableCell<Laboratorio, Void> call(final TableColumn<Laboratorio, Void> param) {
-        final TableCell<Laboratorio, Void> cell = new TableCell<Laboratorio, Void>() {
+      public TableCell<Reserva, Void> call(final TableColumn<Reserva, Void> param) {
+        final TableCell<Reserva, Void> cell = new TableCell<Reserva, Void>() {
 
           private final Button btnEditar = new Button("Editar");
           private final Button btnDeletar = new Button("Deletar");
 
           {
             btnEditar.setOnAction((ActionEvent event) -> {
-              Laboratorio lab = getTableView().getItems().get(getIndex());
-              _labControl.setLab(lab);
+              Reserva reserva = getTableView().getItems().get(getIndex());
+              _reservaControl.setReserva(reserva);
               executor.navigate("updateLabBoundary");
             });
 
             btnDeletar.setOnAction((ActionEvent event) -> {
-              Laboratorio lab = getTableView().getItems().get(getIndex());
-              int confirm = JOptionPane.showConfirmDialog(null, "Deletar o laboratório " + lab.getNumero() + "?");
-              if (confirm == 0) {
-                _labControl.deleteLab(lab);
-                appTable(_labControl.listLabs());
-              }
+              Reserva reserva = getTableView().getItems().get(getIndex());
+//              int confirm = JOptionPane.showConfirmDialog(null, "Deletar a reserva " +  + "?");
+//              if (confirm == 0) {
+//                _reservaControl.deleteReserva(reserva);
+//                appTable(_reservaControl.listReservas());
+//              }
+              _reservaControl.deleteReserva(reserva);
+              appTable(_reservaControl.listReservas());
             });
           }
 

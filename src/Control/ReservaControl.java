@@ -66,10 +66,11 @@ public class ReservaControl {
     }
   }
 
+  private ObservableList<Reserva> reservas;
+
   private StringProperty labTela = new SimpleStringProperty("");
   private StringProperty horaInicial = new SimpleStringProperty("");
   private StringProperty horaFinal = new SimpleStringProperty("");
-
 
   public ObservableList<String> listLabsTela() {
     for (Laboratorio lab : labsDisponiveis) {
@@ -79,8 +80,7 @@ public class ReservaControl {
     return labs;
   }
 
-  public List<Reserva> listreservas() {
-    List<Reserva> reservas = new ArrayList<>();
+  public ObservableList<Reserva> listReservas() {
     try {
       reservas = _reservaDao.listReservas();
     } catch (SQLException e) {
@@ -150,10 +150,7 @@ public class ReservaControl {
 
   }
 
-  public void deleteReserva() {
-    Reserva reserva = new Reserva();
-    reserva.setId(2);
-
+  public void deleteReserva(Reserva reserva) {
     try {
       _reservaDao.deleteReserva(reserva);
     } catch (SQLException e) {
@@ -186,4 +183,11 @@ public class ReservaControl {
     return horaFinal;
   }
 
+  public void setReserva(Reserva reserva) {
+    if (reserva != null) {
+      labTela.set(labControl.getLab(reserva.getLabId()).getDescricao());
+      horaInicial.set(reserva.getReservaDate().toString());
+      horaFinal.set(reserva.getEntregaDate().toString());
+    }
+  }
 }

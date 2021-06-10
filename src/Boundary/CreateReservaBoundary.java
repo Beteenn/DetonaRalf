@@ -61,7 +61,7 @@ public class CreateReservaBoundary implements TelaStrategy {
 
         buttonReservar.setOnAction(e -> {
              if (reservaControl.insertReserva()) {
-//                executor.navigate("");
+                executor.navigate("listReservasBoundary");
                  System.out.println("Reservado");
              } else {
              JOptionPane.showMessageDialog(null, "Não foi possivel reservar!", "Erro",

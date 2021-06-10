@@ -10,6 +10,9 @@ public class Reserva {
   private LocalDateTime reservaDate;
   private LocalDateTime entregaDate;
 
+  private int numeroLab;
+  private String descricaoLab;
+
   // region Getters and Setters
   public int getId() {
     return id;
@@ -50,7 +53,24 @@ public class Reserva {
   public void setEntregaDate(LocalDateTime entregaDate) {
     this.entregaDate = entregaDate;
   }
-// endregion
+
+  public int getNumeroLab() {
+    return numeroLab;
+  }
+
+  public void setNumeroLab(int numeroLab) {
+    this.numeroLab = numeroLab;
+  }
+
+  public String getDescricaoLab() {
+    return descricaoLab;
+  }
+
+  public void setDescricaoLab(String descricaoLab) {
+    this.descricaoLab = descricaoLab;
+  }
+
+  // endregion
 
 
 }

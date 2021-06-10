@@ -12,7 +12,7 @@ public interface ILabDao {
 
   void deleteLab(int labId) throws SQLException;
 
-  Laboratorio getLab(Laboratorio lab) throws SQLException;
+  Laboratorio getLab(int id) throws SQLException;
 
   ObservableList<Laboratorio> listLabs() throws SQLException;
 }

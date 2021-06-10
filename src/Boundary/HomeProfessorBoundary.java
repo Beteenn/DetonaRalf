@@ -32,7 +32,7 @@ public class HomeProfessorBoundary implements TelaStrategy {
     });
 
     buttonProf.setOnAction(e -> {
-      executor.navigate("listLabsBoundary");
+      executor.navigate("listReservasBoundary");
     });
 
     return panePrincipal;

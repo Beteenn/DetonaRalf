@@ -1,6 +1,7 @@
 package Repository;
 
 import Entity.Reserva;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,7 +10,7 @@ public interface IReservaDao {
 
   Reserva getReserva(Reserva reserva) throws SQLException;
 
-  List<Reserva> listReservas() throws SQLException;
+  ObservableList<Reserva> listReservas() throws SQLException;
 
   void insertReserva(Reserva reserva) throws SQLException;
 

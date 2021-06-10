@@ -36,11 +36,10 @@ public class LaboratorioControl {
     return labs;
   }
 
-  public Laboratorio getLab() {
+  public Laboratorio getLab(int id) {
     Laboratorio lab = new Laboratorio();
-    lab.setId(4);
     try {
-      lab = _labDao.getLab(lab);
+      lab = _labDao.getLab(id);
     } catch (SQLException e) {
       e.printStackTrace();
     }

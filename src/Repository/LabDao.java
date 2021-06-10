@@ -49,11 +49,12 @@ public class LabDao implements ILabDao {
   }
 
   @Override
-  public Laboratorio getLab(Laboratorio lab) throws SQLException {
+  public Laboratorio getLab(int id) throws SQLException {
     String sql = "SELECT * FROM laboratorio WHERE id = ?";
     PreparedStatement ps = connection.prepareStatement(sql);
-    ps.setInt(1, (int) lab.getId());
+    ps.setInt(1, id);
     ResultSet rs = ps.executeQuery();
+    Laboratorio lab = new Laboratorio();
     if (rs.next()) {
       lab.setId(rs.getInt("id"));
       lab.setDescricao(rs.getString("descricao"));
